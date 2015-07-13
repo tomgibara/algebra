@@ -63,8 +63,8 @@ public class SetLatticeTest extends TestCase {
 	public void testCompare() {
 		SetLattice<Integer> lattice = new SetLattice<Integer>(set(1,2,3,4));
 		assertEquals(Comparison.EQUAL, lattice.compare(set(1,2), set(1,2)));
-		assertEquals(Comparison.LESS_THAN, lattice.compare(set(1,2), set(1,2,3)));
-		assertEquals(Comparison.GREATER_THAN, lattice.compare(set(1,2,3), set(1,2)));
+		assertEquals(Comparison.DISORDERED, lattice.compare(set(1,2), set(1,2,3)));
+		assertEquals(Comparison.ORDERED, lattice.compare(set(1,2,3), set(1,2)));
 		assertEquals(Comparison.INCOMPARABLE, lattice.compare(set(1,2), set(2,3)));
 	}
 	

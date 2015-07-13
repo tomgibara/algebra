@@ -5,8 +5,8 @@ public interface PartialOrder<E> {
 	enum Comparison {
 
 		EQUAL, // if a<=b and b<=a
-		GREATER_THAN, // if b<=a but not a<=b
-		LESS_THAN, // if a<=b but not b<=a
+		ORDERED, // if b<=a but not a<=b
+		DISORDERED, // if a<=b but not b<=a
 		INCOMPARABLE; //if neither a<=b or b<=a
 
 		//TODO how to describe this ??

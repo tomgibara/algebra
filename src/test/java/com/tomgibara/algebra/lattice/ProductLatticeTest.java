@@ -54,12 +54,12 @@ public class ProductLatticeTest extends TestCase {
 	public void testCompare() {
 		ProductLattice lattice = new ProductLattice(new SetLattice<Integer>(set(1,2,3)), new OrderedLattice<Integer>());
 		assertEquals(Comparison.EQUAL, lattice.compare(tuple(set(1,2),2), tuple(set(1,2),2)));
-		assertEquals(Comparison.LESS_THAN, lattice.compare(tuple(set(1,2),1), tuple(set(1,2),2)));
-		assertEquals(Comparison.LESS_THAN, lattice.compare(tuple(set(1),2), tuple(set(1,2),2)));
-		assertEquals(Comparison.LESS_THAN, lattice.compare(tuple(set(1),1), tuple(set(1,2),2)));
-		assertEquals(Comparison.GREATER_THAN, lattice.compare(tuple(set(1,2),2), tuple(set(1,2),1)));
-		assertEquals(Comparison.GREATER_THAN, lattice.compare(tuple(set(1,2),2), tuple(set(1),2)));
-		assertEquals(Comparison.GREATER_THAN, lattice.compare(tuple(set(1,2),2), tuple(set(1),1)));
+		assertEquals(Comparison.DISORDERED, lattice.compare(tuple(set(1,2),1), tuple(set(1,2),2)));
+		assertEquals(Comparison.DISORDERED, lattice.compare(tuple(set(1),2), tuple(set(1,2),2)));
+		assertEquals(Comparison.DISORDERED, lattice.compare(tuple(set(1),1), tuple(set(1,2),2)));
+		assertEquals(Comparison.ORDERED, lattice.compare(tuple(set(1,2),2), tuple(set(1,2),1)));
+		assertEquals(Comparison.ORDERED, lattice.compare(tuple(set(1,2),2), tuple(set(1),2)));
+		assertEquals(Comparison.ORDERED, lattice.compare(tuple(set(1,2),2), tuple(set(1),1)));
 		assertEquals(Comparison.INCOMPARABLE, lattice.compare(tuple(set(1,2,3),1), tuple(set(1,2),2)));
 	}
 	

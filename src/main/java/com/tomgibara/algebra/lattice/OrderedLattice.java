@@ -139,8 +139,8 @@ public class OrderedLattice<E> extends AbstractLattice<E> {
 		checkBounds(a);
 		checkBounds(b);
 		final int c = comp(a, b);
-		if (c < 0) return Comparison.LESS_THAN;
-		if (c > 0) return Comparison.GREATER_THAN;
+		if (c < 0) return Comparison.DISORDERED;
+		if (c > 0) return Comparison.ORDERED;
 		return Comparison.EQUAL;
 	}
 	

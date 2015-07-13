@@ -23,9 +23,9 @@ public abstract class AbstractPartialOrder<E> implements PartialOrder<E> {
 		final boolean alteb = isOrdered(a, b);
 		final boolean bltea = isOrdered(b, a);
 		if (alteb) {
-			return bltea ? Comparison.EQUAL : Comparison.LESS_THAN;
+			return bltea ? Comparison.EQUAL : Comparison.DISORDERED;
 		} else {
-			return bltea ? Comparison.GREATER_THAN : Comparison.INCOMPARABLE;
+			return bltea ? Comparison.ORDERED : Comparison.INCOMPARABLE;
 		}
 	}
 	

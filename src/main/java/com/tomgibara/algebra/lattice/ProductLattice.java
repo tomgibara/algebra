@@ -20,9 +20,10 @@ public class ProductLattice implements Lattice<Object[]> {
 
 	private final Lattice<Object>[] lattices;
 	
-	public ProductLattice(Lattice... lattices) {
+	@SuppressWarnings("unchecked")
+	public ProductLattice(Lattice<?>... lattices) {
 		if (lattices == null) throw new IllegalArgumentException();
-		this.lattices = lattices;
+		this.lattices = (Lattice<Object>[]) lattices;
 	}
 
 	@Override
@@ -85,7 +86,7 @@ public class ProductLattice implements Lattice<Object[]> {
 	@Override
 	public Lattice<Object[]> boundedAbove(Object[] top) {
 		checkTuple(top);
-		final Lattice[] lattices = new Lattice[this.lattices.length];
+		final Lattice<?>[] lattices = new Lattice<?>[this.lattices.length];
 		for (int i = 0; i < lattices.length; i++) {
 			lattices[i] = this.lattices[i].boundedAbove(top[i]);
 		}
@@ -95,7 +96,7 @@ public class ProductLattice implements Lattice<Object[]> {
 	@Override
 	public Lattice<Object[]> boundedBelow(Object[] bottom) {
 		checkTuple(bottom);
-		final Lattice[] lattices = new Lattice[this.lattices.length];
+		final Lattice<?>[] lattices = new Lattice<?>[this.lattices.length];
 		for (int i = 0; i < lattices.length; i++) {
 			lattices[i] = this.lattices[i].boundedBelow(bottom[i]);
 		}
@@ -106,7 +107,7 @@ public class ProductLattice implements Lattice<Object[]> {
 	public Lattice<Object[]> bounded(Object[] top, Object[] bottom) {
 		checkTuple(top);
 		checkTuple(bottom);
-		final Lattice[] lattices = new Lattice[this.lattices.length];
+		final Lattice<?>[] lattices = new Lattice<?>[this.lattices.length];
 		for (int i = 0; i < lattices.length; i++) {
 			lattices[i] = this.lattices[i].bounded(top[i], bottom[i]);
 		}

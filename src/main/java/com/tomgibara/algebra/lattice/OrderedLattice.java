@@ -154,8 +154,10 @@ public class OrderedLattice<E> implements Lattice<E> {
 		if (a != null && comp(a, b) < 0) throw new IllegalArgumentException();
 	}
 	
+	@SuppressWarnings("unchecked")
 	private int comp(E a, E b) {
 		if (comparator == null) {
+			// with no comparator we have to trust we contain comparable elements
 			return ((Comparable<? super E>)a).compareTo(b);
 		} else {
 			return comparator.compare(a, b);

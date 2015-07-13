@@ -27,7 +27,7 @@ public class SetLattice<E> implements Lattice<Set<E>> {
 	private final Set<E> bottom;
 	
 	public SetLattice(Set<E> top) {
-		this(top, (Set<E>) Collections.emptySet());
+		this(top, Collections.emptySet());
 	}
 	
 	public SetLattice(Set<E> top, Set<E> bottom) {

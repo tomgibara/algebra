@@ -16,7 +16,7 @@
  */
 package com.tomgibara.algebra.lattice;
 
-public class ProductLattice extends AbstractLattice<Object[]> {
+public class ProductLattice implements Lattice<Object[]> {
 
 	private final Lattice<Object>[] lattices;
 	

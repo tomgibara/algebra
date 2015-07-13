@@ -21,8 +21,18 @@ public interface PartialOrder<E> {
 
 	}
 
-	boolean isOrdered(E a, E b);
+	default boolean isOrdered(E a, E b) {
+		return compare(a, b) == Comparison.ORDERED;
+	}
 
-	Comparison compare(E a, E b);
+	default Comparison compare(E a, E b) {
+		final boolean alteb = isOrdered(a, b);
+		final boolean bltea = isOrdered(b, a);
+		if (alteb) {
+			return bltea ? Comparison.EQUAL : Comparison.DISORDERED;
+		} else {
+			return bltea ? Comparison.ORDERED : Comparison.INCOMPARABLE;
+		}
+	}
 
 }

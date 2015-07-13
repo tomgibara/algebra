@@ -35,13 +35,27 @@ public interface Lattice<E> extends MeetSemiLattice<E>, JoinSemiLattice<E>, Part
 	// req. lattice top v supplied top = lattice top
 	// req  lattice bottom ^ supplied bottom = lattice bottom
 	// returns a new lattice bounded above and below by supplied top and bottom
-	Lattice<E> bounded(E top, E bottom);
+	default Lattice<E> bounded(E top, E bottom) {
+		return boundedAbove(top).boundedBelow(bottom);
+	}
 
 	// returns true if bounded above and below
-	boolean isBounded();
+	default boolean isBounded() {
+		return isBoundedBelow() && isBoundedAbove();
+	}
 
 	//IAE if lattice doesn't contain e1 or e2
 	//equivalent to compare(e1, e2) == Comparison.EQUAL, but may be more efficient
-	boolean equalInLattice(E e1, E e2);
+	default boolean equalInLattice(E e1, E e2) {
+		if (!contains(e1) || !contains(e2)) throw new IllegalArgumentException();
+		E m = meet(e1, e2);
+		E j = join(e1, e2);
+		return m.equals(j);
+	}
 	
+	@Override
+	default boolean isOrdered(E e1, E e2) {
+		if (!contains(e1) || !contains(e2)) throw new IllegalArgumentException();
+		return join(e1, e2).equals(e2);
+	}
 }

@@ -18,7 +18,7 @@ package com.tomgibara.algebra.lattice;
 
 import java.util.Comparator;
 
-public class OrderedLattice<E> extends AbstractLattice<E> {
+public class OrderedLattice<E> implements Lattice<E> {
 
 	private final Comparator<? super E> comparator;
 	private final E top;

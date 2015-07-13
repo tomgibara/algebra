@@ -16,7 +16,7 @@
  */
 package com.tomgibara.algebra.lattice;
 
-public class BooleanLattice extends AbstractLattice<Boolean> {
+public class BooleanLattice implements Lattice<Boolean> {
 
 	private final boolean top;
 	private final boolean bottom;

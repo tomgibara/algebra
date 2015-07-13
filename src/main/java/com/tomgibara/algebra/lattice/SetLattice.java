@@ -21,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 //TODO consider whether unbounded sets could be supported
-public class SetLattice<E> extends AbstractLattice<Set<E>> {
+public class SetLattice<E> implements Lattice<Set<E>> {
 
 	private final Set<E> top;
 	private final Set<E> bottom;

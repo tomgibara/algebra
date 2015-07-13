@@ -72,34 +72,34 @@ public class SetLattice<E> implements Lattice<Set<E>> {
 	public Set<E> join(Set<E> a, Set<E> b) {
 		int as = a.size();
 		int bs = b.size();
+		Set<E> c;
 		if (as > bs) {
 			if (bs == 0) return a;
-			HashSet<E> c = new HashSet<E>(a);
+			c = mutableCopy(a);
 			c.addAll(b);
-			return c;
 		} else {
 			if (as == 0) return b;
-			HashSet<E> c = new HashSet<E>(b);
+			c = mutableCopy(b);
 			c.addAll(a);
-			return c;
 		}
+		return immutable(c);
 	}
 
 	@Override
 	public Set<E> meet(Set<E> a, Set<E> b) {
 		int as = a.size();
 		int bs = b.size();
+		Set<E> c;
 		if (as > bs) {
 			if (bs == 0) return b;
-			HashSet<E> c = new HashSet<E>(a);
+			c = mutableCopy(a);
 			c.retainAll(b);
-			return c;
 		} else {
 			if (as == 0) return a;
-			HashSet<E> c = new HashSet<E>(b);
+			c = mutableCopy(b);
 			c.retainAll(a);
-			return c;
 		}
+		return immutable(c);
 	}
 	
 	@Override
@@ -131,6 +131,16 @@ public class SetLattice<E> implements Lattice<Set<E>> {
 	public boolean isOrdered(Set<E> a, Set<E> b) {
 		if (!contains(a) && !(contains(b))) throw new IllegalArgumentException();
 		return b.containsAll(a);
+	}
+	
+	// methods for overriding
+	
+	protected Set<E> mutableCopy(Set<E> set) {
+		return new HashSet<E>(set);
+	}
+	
+	protected Set<E> immutable(Set<E> set) {
+		return Collections.unmodifiableSet(set);
 	}
 	
 	// object methods

@@ -6,12 +6,17 @@ import com.tomgibara.collect.EquRel;
 public interface Coset<E> extends Algebra<E> {
 
 	public enum Side {
-		LEFT,
-		RIGHT,
-		BOTH;
+		LEFT (true , false),
+		RIGHT(false, true ),
+		BOTH (true , true );
 
-		public final boolean left = this != RIGHT;
-		public final boolean right = this != LEFT;
+		public final boolean left;
+		public final boolean right;
+		
+		private Side(boolean left, boolean right) {
+			this.left = left;
+			this.right = right;
+		}
 		
 		public <E> Coset<E> entireCoset(Group<E> group) {
 			if (group == null) throw new IllegalArgumentException("null group");

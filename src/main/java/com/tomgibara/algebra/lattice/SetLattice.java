@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.tomgibara.collect.EquRel;
+
 //TODO consider whether unbounded sets could be supported
 public class SetLattice<E> implements Lattice<Set<E>> {
 
@@ -122,9 +124,11 @@ public class SetLattice<E> implements Lattice<Set<E>> {
 	}
 	
 	@Override
-	public boolean equalInLattice(Set<E> a, Set<E> b) {
-		if (!contains(a) || !contains(b)) throw new IllegalArgumentException();
-		return a.equals(b);
+	public EquRel<Set<E>> equality() {
+		return (a,b) -> {
+			if (!contains(a) || !contains(b)) throw new IllegalArgumentException();
+			return a.equals(b);
+		};
 	}
 	
 	@Override

@@ -16,6 +16,8 @@
  */
 package com.tomgibara.algebra.lattice;
 
+import com.tomgibara.collect.EquRel;
+
 public class BooleanLattice implements Lattice<Boolean> {
 
 	private final boolean top;
@@ -99,9 +101,11 @@ public class BooleanLattice implements Lattice<Boolean> {
 	}
 	
 	@Override
-	public boolean equalInLattice(Boolean a, Boolean b) {
-		if (!contains(a) || !contains(b)) throw new IllegalArgumentException();
-		return a.booleanValue() == b.booleanValue();
+	public EquRel<Boolean> equality() {
+		return (a,b) -> {
+			if (!contains(a) || !contains(b)) throw new IllegalArgumentException();
+			return a.booleanValue() == b.booleanValue();
+		};
 	}
 	
 	@Override

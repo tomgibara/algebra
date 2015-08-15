@@ -18,6 +18,8 @@ package com.tomgibara.algebra.lattice;
 
 import java.util.Comparator;
 
+import com.tomgibara.collect.EquRel;
+
 public class OrderedLattice<E> implements Lattice<E> {
 
 	private final Comparator<? super E> comparator;
@@ -121,10 +123,12 @@ public class OrderedLattice<E> implements Lattice<E> {
 	};
 	
 	@Override
-	public boolean equalInLattice(E a, E b) {
-		checkBounds(a);
-		checkBounds(b);
-		return comp(a, b) == 0;
+	public EquRel<E> equality() {
+		return (a,b) -> {
+			checkBounds(a);
+			checkBounds(b);
+			return comp(a, b) == 0;
+		};
 	}
 	
 	@Override

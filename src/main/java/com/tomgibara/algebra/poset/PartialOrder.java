@@ -1,5 +1,6 @@
 package com.tomgibara.algebra.poset;
 
+//TODO consider moving into parent package
 public interface PartialOrder<E> {
 
 	enum Comparison {

@@ -16,9 +16,8 @@
  */
 package com.tomgibara.algebra.lattice;
 
-public interface SemiLattice<E> {
+import com.tomgibara.algebra.Algebra;
 
-	//throws an IAE if e is not a valid candidate for inclusion in the semi lattice
-	boolean contains(E e);
-	
+public interface SemiLattice<E> extends Algebra<E> {
+
 }

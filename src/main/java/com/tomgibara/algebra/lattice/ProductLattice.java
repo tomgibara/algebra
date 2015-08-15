@@ -16,6 +16,8 @@
  */
 package com.tomgibara.algebra.lattice;
 
+import com.tomgibara.collect.EquRel;
+
 public class ProductLattice implements Lattice<Object[]> {
 
 	private final Lattice<Object>[] lattices;
@@ -137,13 +139,15 @@ public class ProductLattice implements Lattice<Object[]> {
 	}
 	
 	@Override
-	public boolean equalInLattice(Object[] tupleA, Object[] tupleB) {
-		checkTuple(tupleA);
-		checkTuple(tupleB);
-		for (int i = 0; i < lattices.length; i++) {
-			if (!lattices[i].equalInLattice(tupleA[i], tupleB[i])) return false;
-		}
-		return true;
+	public EquRel<Object[]> equality() {
+		return (tupleA, tupleB) -> {
+			checkTuple(tupleA);
+			checkTuple(tupleB);
+			for (int i = 0; i < lattices.length; i++) {
+				if (!lattices[i].equality().isEquivalent(tupleA[i], tupleB[i])) return false;
+			}
+			return true;
+		};
 	}
 
 	@Override

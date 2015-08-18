@@ -17,6 +17,15 @@ public final class Order {
 	// -3 - uncountable
 	private static final int U = -3;
 	
+	private static Order fromConstant(int min) {
+		switch (min) {
+		case F : return FINITE;
+		case C : return COUNTABLY_INFINITE;
+		case U : return UNCOUNTABLY_INFINITE;
+		default: throw new IllegalStateException();
+		}
+	}
+	
 	// public statics
 	
 	public static final Order FINITE               = new Order(F);
@@ -43,14 +52,7 @@ public final class Order {
 		case 2 : return orders[0].product(orders[1]);
 		default:
 			long min = Arrays.stream(orders).mapToLong(order -> order.small).min().getAsLong();
-			if (min < 0) {
-				switch ((int)min) {
-				case F : return FINITE;
-				case C : return COUNTABLY_INFINITE;
-				case U : return UNCOUNTABLY_INFINITE;
-				default: throw new IllegalStateException();
-				}
-			}
+			if (min < 0) return fromConstant((int) min);
 			BigInteger big = Arrays.stream(orders).map(order -> order.asBigInt()).reduce((a,b) -> a.multiply(b)).get();
 			return new Order(big);
 		}
@@ -121,10 +123,8 @@ public final class Order {
 	}
 	
 	public Order product(Order that) {
-		if (this.small < 0 && that.small < 0) {
-			return this.small == -2 || that.small == -2 ?
-					UNCOUNTABLY_INFINITE : COUNTABLY_INFINITE;
-		}
+		long min = Math.min(this.small, that.small);
+		if (min < 0L) return fromConstant((int) min);
 		return new Order(this.asBigInt().multiply(that.asBigInt()));
 	}
 	

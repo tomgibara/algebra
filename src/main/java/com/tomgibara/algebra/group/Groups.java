@@ -27,7 +27,7 @@ public class Groups {
 		return new Group<E>() {
 
 			private final Set<E> els = Collect.equivalence(equality).setsWithGenericStorage().newSet(elements);
-			private final Order order = new Order(elements.size());
+			private final Order order = Order.fromLong(elements.size());
 			private Boolean abelian = null;
 
 			@Override

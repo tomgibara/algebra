@@ -8,5 +8,7 @@ public interface Algebra<E> {
 	boolean contains(E e);
 
 	EquRel<E> equality();
-	
+
+	Order getOrder();
+
 }

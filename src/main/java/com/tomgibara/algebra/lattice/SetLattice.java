@@ -16,10 +16,12 @@
  */
 package com.tomgibara.algebra.lattice;
 
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.tomgibara.algebra.Order;
 import com.tomgibara.collect.EquRel;
 
 //TODO consider whether unbounded sets could be supported
@@ -27,6 +29,7 @@ public class SetLattice<E> implements Lattice<Set<E>> {
 
 	private final Set<E> top;
 	private final Set<E> bottom;
+	private final Order order;
 	
 	public SetLattice(Set<E> top) {
 		this(top, Collections.emptySet());
@@ -38,6 +41,13 @@ public class SetLattice<E> implements Lattice<Set<E>> {
 		if (!top.containsAll(bottom)) throw new IllegalArgumentException();
 		this.top = top;
 		this.bottom = bottom;
+		int size = top.size();
+		this.order = size < 63 ? Order.fromLong(1L << size) : Order.fromBig(BigInteger.ONE.shiftLeft(size));
+	}
+	
+	@Override
+	public Order getOrder() {
+		return order;
 	}
 	
 	@Override

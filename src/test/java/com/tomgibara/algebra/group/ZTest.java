@@ -1,0 +1,49 @@
+package com.tomgibara.algebra.group;
+
+import static java.math.BigInteger.ONE;
+import static java.math.BigInteger.ZERO;
+
+import java.math.BigInteger;
+import java.util.Random;
+
+import junit.framework.TestCase;
+
+public class ZTest extends TestCase {
+
+	private Random random = new Random(0);
+	
+	private BigInteger randomBig() {
+		int length = random.nextInt(8);
+		if (length == 0) return ZERO;
+		byte[] bytes = new byte[length];
+		random.nextBytes(bytes);
+		BigInteger big = new BigInteger(bytes);
+		return big;
+	}
+	
+	public void testBasic() {
+		Group<BigInteger> z = Groups.Z;
+		assertTrue(z.isAbelian());
+		BigInteger identity = z.op().identity();
+		assertEquals(ZERO, identity);
+		for (int i = 0; i < 100; i++) {
+			BigInteger a = randomBig();
+			BigInteger b = randomBig();
+			assertEquals(a.add(b), z.op().compose(a, b));
+		}
+		BigInteger five = BigInteger.valueOf(5);
+		Subgroup<BigInteger> subgroup = z.inducedSubgroup(five);
+		assertTrue(subgroup.getSubgroup().contains(ZERO));
+		assertFalse(subgroup.getSubgroup().contains(ONE));
+		assertTrue(subgroup.getSubgroup().contains(five));
+		Coset<BigInteger> cs0 = subgroup.leftCoset(ZERO);
+		assertEquals(ZERO, cs0.getRepresentative());
+		Coset<BigInteger> cs5 = subgroup.leftCoset(five);
+		assertEquals(ZERO, cs5.getRepresentative());
+		Coset<BigInteger> cs1 = subgroup.leftCoset(BigInteger.valueOf(6));
+		assertEquals(ONE, cs1.getRepresentative());
+		assertEquals(cs0, cs5);
+		assertEquals(cs0.hashCode(), cs5.hashCode());
+	}
+	
+}

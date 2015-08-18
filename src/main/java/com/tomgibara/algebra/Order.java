@@ -3,33 +3,74 @@ package com.tomgibara.algebra;
 import static com.tomgibara.algebra.Constants.MAX_LONG_VALUE;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 //TODO construct via static accessors
 public final class Order {
 	
-	public static final Order COUNTABLY_INFINITE = new Order(true);
-	public static final Order UNCOUNTABLY_INFINITE = new Order(false);
+	// private statics
 	
-	//  0 - big
-	// -1 - countable
-	// -2 - uncountable
+	// -1 - finite (unknown)
+	private static final int F = -1;
+	// -2 - countable
+	private static final int C = -2;
+	// -3 - uncountable
+	private static final int U = -3;
+	
+	// public statics
+	
+	public static final Order FINITE               = new Order(F);
+	public static final Order COUNTABLY_INFINITE   = new Order(C);
+	public static final Order UNCOUNTABLY_INFINITE = new Order(U);
+	public static final Order ONE                  = new Order(1L);
+	
+	public static Order fromLong(long order) {
+		if (order < 1L) throw new IllegalArgumentException("non-positive order");
+		return new Order(order);
+	}
+	
+	public static Order fromBig(BigInteger order) {
+		if (order == null) throw new IllegalArgumentException("null order");
+		if (order.signum() < 0) throw new IllegalArgumentException("non-positive order");
+		return new Order(order);
+	}
+	
+	public static Order product(Order... orders) {
+		if (orders == null) throw new IllegalArgumentException("null orders");
+		switch (orders.length) {
+		case 0 : return ONE;
+		case 1 : return orders[0];
+		case 2 : return orders[0].product(orders[1]);
+		default:
+			long min = Arrays.stream(orders).mapToLong(order -> order.small).min().getAsLong();
+			if (min < 0) {
+				switch ((int)min) {
+				case F : return FINITE;
+				case C : return COUNTABLY_INFINITE;
+				case U : return UNCOUNTABLY_INFINITE;
+				default: throw new IllegalStateException();
+				}
+			}
+			BigInteger big = Arrays.stream(orders).map(order -> order.asBigInt()).reduce((a,b) -> a.multiply(b)).get();
+			return new Order(big);
+		}
+	}
+	
 	private final long small;
 	private BigInteger big;
 	
-	private Order(boolean countable) {
-		small = countable ? -1 : -2;
+	private Order(int type) {
+		small = type;
 		big = null;
 	}
 	
-	public Order(long order) {
-		if (order < 1L) throw new IllegalArgumentException("non-positive order");
+	private Order(long order) {
 		small = order;
 		big = null;
 	}
 	
-	public Order(BigInteger order) {
-		if (order == null) throw new IllegalArgumentException("null order");
-		small = order.compareTo(MAX_LONG_VALUE) > 0 ? 0 : order.longValue();
+	private Order(BigInteger order) {
+		small = order.compareTo(MAX_LONG_VALUE) > 0 ? 0L : order.longValue();
 		big = order;
 	}
 	
@@ -45,7 +86,7 @@ public final class Order {
 	
 	public BigInteger asBigInt() {
 		if (big == null) {
-			if (small < 0) return null; //TODO should throw exception instead?
+			if (small < 0L) return null; //TODO should throw exception instead?
 			big = BigInteger.valueOf(small);
 		}
 		return big;
@@ -77,6 +118,14 @@ public final class Order {
 	
 	public boolean isUncountablyInfinite() {
 		return small == -2L;
+	}
+	
+	public Order product(Order that) {
+		if (this.small < 0 && that.small < 0) {
+			return this.small == -2 || that.small == -2 ?
+					UNCOUNTABLY_INFINITE : COUNTABLY_INFINITE;
+		}
+		return new Order(this.asBigInt().multiply(that.asBigInt()));
 	}
 	
 	@Override

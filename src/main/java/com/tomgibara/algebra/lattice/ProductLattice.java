@@ -16,16 +16,31 @@
  */
 package com.tomgibara.algebra.lattice;
 
+import java.util.Arrays;
+
+import com.tomgibara.algebra.Order;
 import com.tomgibara.collect.EquRel;
 
 public class ProductLattice implements Lattice<Object[]> {
 
 	private final Lattice<Object>[] lattices;
+	private final Order order;
 	
 	@SuppressWarnings("unchecked")
 	public ProductLattice(Lattice<?>... lattices) {
 		if (lattices == null) throw new IllegalArgumentException();
 		this.lattices = (Lattice<Object>[]) lattices;
+		//TODO is there a nice way to map arrays like this in the Java APIs?
+		Order[] orders = new Order[lattices.length];
+		for (int i = 0; i < orders.length; i++) {
+			orders[i] = lattices[i].getOrder();
+		}
+		this.order = Order.product(orders);
+	}
+	
+	@Override
+	public Order getOrder() {
+		return order;
 	}
 
 	@Override

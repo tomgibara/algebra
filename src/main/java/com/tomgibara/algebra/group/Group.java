@@ -65,8 +65,6 @@ public interface Group<E> extends Monoid<E> {
 		return true;
 	}
 	
-	Order getOrder();
-	
 	default Subgroup<E> inducedSubgroup(E... es) {
 		//TODO repeatedly operate new elements against all elements until no new elements
 		throw new UnsupportedOperationException();

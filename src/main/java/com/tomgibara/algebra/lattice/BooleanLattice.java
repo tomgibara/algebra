@@ -16,10 +16,14 @@
  */
 package com.tomgibara.algebra.lattice;
 
+import com.tomgibara.algebra.Order;
 import com.tomgibara.collect.EquRel;
 
 public class BooleanLattice implements Lattice<Boolean> {
 
+	private final static Order ONE = Order.ONE;
+	private final static Order TWO = Order.fromLong(2L);
+	
 	private final boolean top;
 	private final boolean bottom;
 	
@@ -32,6 +36,11 @@ public class BooleanLattice implements Lattice<Boolean> {
 		if (bottom && !top) throw new IllegalArgumentException();
 		this.top = top;
 		this.bottom = bottom;
+	}
+	
+	@Override
+	public Order getOrder() {
+		return bottom && top ? TWO : ONE;
 	}
 	
 	@Override

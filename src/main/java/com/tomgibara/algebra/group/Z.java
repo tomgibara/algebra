@@ -61,8 +61,8 @@ class Z implements Group<BigInteger> {
 	
 	// fields
 	
-	private final BigInteger g;
-	private final EquRel<BigInteger> cosetEqu;
+	final BigInteger g;
+	final EquRel<BigInteger> cosetEqu;
 	
 	// constructors
 	
@@ -151,7 +151,7 @@ class Z implements Group<BigInteger> {
 
 			@Override
 			public Coset<BigInteger> rightCoset(BigInteger e) {
-				return new ZCoset(gcd == BigInteger.ONE ? e : e.remainder(gcd));
+				return new ZCoset(Z.this, gcd == BigInteger.ONE ? e : e.remainder(gcd));
 			}
 			
 			@Override
@@ -160,6 +160,14 @@ class Z implements Group<BigInteger> {
 			}
 			
 		};
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) return true;
+		if (!(obj instanceof Z)) return false;
+		Z that = (Z) obj;
+		return this.g.equals(that.g);
 	}
 	
 	private static final BigInteger gcd(BigInteger... es) {
@@ -175,42 +183,6 @@ class Z implements Group<BigInteger> {
 			}
 			return gcd;
 		}
-	}
-	
-	private class ZCoset implements Coset<BigInteger> {
-
-		private final BigInteger r;
-		
-		public ZCoset(BigInteger r) {
-			this.r = r;
-		}
-		
-		@Override
-		public boolean contains(BigInteger e) {
-			return equality().isEquivalent(r, e);
-		}
-
-		@Override
-		public EquRel<BigInteger> equality() {
-			return cosetEqu;
-		}
-
-		@Override
-		public Side getSide() {
-			return Side.BOTH;
-		}
-
-		@Override
-		public Group<BigInteger> getGroup() {
-			return Z.this;
-		}
-
-		@Override
-		public BigInteger getRepresentative() {
-			return r;
-		}
-		
-		
 	}
 
 }

@@ -52,7 +52,7 @@ class Z implements Group<BigInteger> {
 			@Override
 			public BigInteger next() {
 				BigInteger r = next;
-				if (next.signum() <= 0) next = next.add(BigInteger.ONE);
+				if (next.signum() >= 0) next = next.add(BigInteger.ONE);
 				next = next.negate();
 				return r;
 			}

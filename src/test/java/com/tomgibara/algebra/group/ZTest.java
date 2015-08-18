@@ -4,7 +4,10 @@ import static java.math.BigInteger.ONE;
 import static java.math.BigInteger.ZERO;
 
 import java.math.BigInteger;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
@@ -44,6 +47,12 @@ public class ZTest extends TestCase {
 		assertEquals(ONE, cs1.getRepresentative());
 		assertEquals(cs0, cs5);
 		assertEquals(cs0.hashCode(), cs5.hashCode());
+		
+		Set<BigInteger> set = new HashSet<BigInteger>();
+		Iterator<BigInteger> it = z.iterator();
+		for (int i = 0; i < 100; i++) {
+			if (!set.add(it.next())) fail( i + " iterant was duplicate");
+		}
 	}
 	
 }

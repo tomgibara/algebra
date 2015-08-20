@@ -18,7 +18,7 @@ package com.tomgibara.algebra.lattice;
 
 import java.util.Comparator;
 
-import com.tomgibara.algebra.Order;
+import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.EquRel;
 
 public class OrderedLattice<E> implements Lattice<E> {
@@ -52,8 +52,8 @@ public class OrderedLattice<E> implements Lattice<E> {
 	}
 	
 	@Override
-	public Order getOrder() {
-		return Order.FINITE;
+	public Size getSize() {
+		return Size.FINITE;
 	}
 
 	public Comparator<? super E> getComparator() {

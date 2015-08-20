@@ -5,8 +5,7 @@ import static com.tomgibara.algebra.Constants.MAX_LONG_VALUE;
 import java.math.BigInteger;
 import java.util.Arrays;
 
-//TODO construct via static accessors
-public final class Order {
+public final class Size {
 	
 	// private statics
 	
@@ -17,7 +16,7 @@ public final class Order {
 	// -3 - uncountable
 	private static final int U = -3;
 	
-	private static Order fromConstant(int min) {
+	private static Size fromConstant(int min) {
 		switch (min) {
 		case F : return FINITE;
 		case C : return COUNTABLY_INFINITE;
@@ -28,61 +27,61 @@ public final class Order {
 	
 	// public statics
 	
-	public static final Order FINITE               = new Order(F);
-	public static final Order COUNTABLY_INFINITE   = new Order(C);
-	public static final Order UNCOUNTABLY_INFINITE = new Order(U);
-	public static final Order ONE                  = new Order(1L);
+	public static final Size FINITE               = new Size(F);
+	public static final Size COUNTABLY_INFINITE   = new Size(C);
+	public static final Size UNCOUNTABLY_INFINITE = new Size(U);
+	public static final Size ONE                  = new Size(1L);
 	
-	public static Order fromLong(long order) {
-		if (order < 1L) throw new IllegalArgumentException("non-positive order");
-		return new Order(order);
+	public static Size fromLong(long size) {
+		if (size < 1L) throw new IllegalArgumentException("non-positive size");
+		return new Size(size);
 	}
 	
-	public static Order fromBig(BigInteger order) {
-		if (order == null) throw new IllegalArgumentException("null order");
-		if (order.signum() < 0) throw new IllegalArgumentException("non-positive order");
-		return new Order(order);
+	public static Size fromBig(BigInteger size) {
+		if (size == null) throw new IllegalArgumentException("null size");
+		if (size.signum() < 0) throw new IllegalArgumentException("non-positive size");
+		return new Size(size);
 	}
 	
-	public static Order product(Order... orders) {
-		if (orders == null) throw new IllegalArgumentException("null orders");
-		switch (orders.length) {
+	public static Size product(Size... sizes) {
+		if (sizes == null) throw new IllegalArgumentException("null sizes");
+		switch (sizes.length) {
 		case 0 : return ONE;
-		case 1 : return orders[0];
-		case 2 : return orders[0].product(orders[1]);
+		case 1 : return sizes[0];
+		case 2 : return sizes[0].product(sizes[1]);
 		default:
-			long min = Arrays.stream(orders).mapToLong(order -> order.small).min().getAsLong();
+			long min = Arrays.stream(sizes).mapToLong(size -> size.small).min().getAsLong();
 			if (min < 0) return fromConstant((int) min);
-			BigInteger big = Arrays.stream(orders).map(order -> order.asBigInt()).reduce((a,b) -> a.multiply(b)).get();
-			return new Order(big);
+			BigInteger big = Arrays.stream(sizes).map(size -> size.asBigInt()).reduce((a,b) -> a.multiply(b)).get();
+			return new Size(big);
 		}
 	}
 	
 	private final long small;
 	private BigInteger big;
 	
-	private Order(int type) {
+	private Size(int type) {
 		small = type;
 		big = null;
 	}
 	
-	private Order(long order) {
-		small = order;
+	private Size(long size) {
+		small = size;
 		big = null;
 	}
 	
-	private Order(BigInteger order) {
-		small = order.compareTo(MAX_LONG_VALUE) > 0 ? 0L : order.longValue();
-		big = order;
+	private Size(BigInteger size) {
+		small = size.compareTo(MAX_LONG_VALUE) > 0 ? 0L : size.longValue();
+		big = size;
 	}
 	
 	public int asInt() {
-		if (small < 1 || small > Integer.MAX_VALUE) throw new IllegalStateException("order too large");
+		if (small < 1 || small > Integer.MAX_VALUE) throw new IllegalStateException("size too large");
 		return (int) small;
 	}
 	
 	public long asLong() {
-		if (small < 1) throw new IllegalStateException("order too large");
+		if (small < 1) throw new IllegalStateException("size too large");
 		return small;
 	}
 	
@@ -122,10 +121,10 @@ public final class Order {
 		return small == -2L;
 	}
 	
-	public Order product(Order that) {
+	public Size product(Size that) {
 		long min = Math.min(this.small, that.small);
 		if (min < 0L) return fromConstant((int) min);
-		return new Order(this.asBigInt().multiply(that.asBigInt()));
+		return new Size(this.asBigInt().multiply(that.asBigInt()));
 	}
 	
 	@Override
@@ -137,8 +136,8 @@ public final class Order {
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
-		if (!(obj instanceof Order)) return false;
-		Order that = (Order) obj;
+		if (!(obj instanceof Size)) return false;
+		Size that = (Size) obj;
 		if (this.small != that.small) return false;
 		return this.small != 0 || this.big.equals(that.big);
 	}

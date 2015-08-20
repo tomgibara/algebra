@@ -1,6 +1,6 @@
 package com.tomgibara.algebra.group;
 
-import com.tomgibara.algebra.Order;
+import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.EquRel;
 
 class SingletonCoset<E> extends AbstractCoset<E> {
@@ -16,8 +16,8 @@ class SingletonCoset<E> extends AbstractCoset<E> {
 	}
 	
 	@Override
-	public Order getOrder() {
-		return Order.ONE;
+	public Size getSize() {
+		return Size.ONE;
 	}
 
 	@Override

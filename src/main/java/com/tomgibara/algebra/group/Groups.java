@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.tomgibara.algebra.Order;
+import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.Collect;
 import com.tomgibara.collect.EquRel;
 
@@ -27,7 +27,7 @@ public class Groups {
 		return new Group<E>() {
 
 			private final Set<E> els = Collect.equivalence(equality).setsWithGenericStorage().newSet(elements);
-			private final Order order = Order.fromLong(elements.size());
+			private final Size size = Size.fromLong(elements.size());
 			private Boolean abelian = null;
 
 			@Override
@@ -64,8 +64,8 @@ public class Groups {
 			}
 
 			@Override
-			public Order getOrder() {
-				return order;
+			public Size getSize() {
+				return size;
 			}
 
 		};

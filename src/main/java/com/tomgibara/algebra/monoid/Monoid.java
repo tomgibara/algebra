@@ -5,7 +5,7 @@ import static com.tomgibara.algebra.Constants.MAX_INT_VALUE;
 import java.math.BigInteger;
 
 import com.tomgibara.algebra.Algebra;
-import com.tomgibara.algebra.Order;
+import com.tomgibara.algebra.Size;
 
 //may throw an IllStaExc if not countable
 public interface Monoid<E> extends Algebra<E>, Iterable<E> {
@@ -51,7 +51,7 @@ public interface Monoid<E> extends Algebra<E>, Iterable<E> {
 
 	Operation<E> op();
 	
-	Order getOrder();
+	Size getSize();
 	
 	default boolean commutes(E e1, E e2) {
 		Operation<E> op = op();

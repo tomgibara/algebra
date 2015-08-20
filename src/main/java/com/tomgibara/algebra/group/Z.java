@@ -3,7 +3,7 @@ package com.tomgibara.algebra.group;
 import java.math.BigInteger;
 import java.util.Iterator;
 
-import com.tomgibara.algebra.Order;
+import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.EquRel;
 import com.tomgibara.hashing.HashCode;
 import com.tomgibara.hashing.HashSize;
@@ -125,8 +125,8 @@ class Z implements Group<BigInteger> {
 	}
 
 	@Override
-	public Order getOrder() {
-		return Order.COUNTABLY_INFINITE;
+	public Size getSize() {
+		return Size.COUNTABLY_INFINITE;
 	}
 
 	@Override

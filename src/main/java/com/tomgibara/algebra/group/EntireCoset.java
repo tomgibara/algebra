@@ -1,6 +1,6 @@
 package com.tomgibara.algebra.group;
 
-import com.tomgibara.algebra.Order;
+import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.EquRel;
 
 class EntireCoset<E> extends AbstractCoset<E> {
@@ -14,8 +14,8 @@ class EntireCoset<E> extends AbstractCoset<E> {
 	}
 	
 	@Override
-	public Order getOrder() {
-		return Order.COUNTABLY_INFINITE;
+	public Size getSize() {
+		return Size.COUNTABLY_INFINITE;
 	}
 	
 	@Override

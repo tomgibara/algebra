@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import com.tomgibara.algebra.Order;
+import com.tomgibara.algebra.Size;
 import com.tomgibara.algebra.monoid.Monoid;
 
 public interface Group<E> extends Monoid<E> {
@@ -52,7 +52,7 @@ public interface Group<E> extends Monoid<E> {
 	// default implementation only valid for 'small' groups
 	default boolean isAbelian() {
 		Operation<E> op = op();
-		if (!getOrder().isSmall()) return op.isCommutative();
+		if (!getSize().isSmall()) return op.isCommutative();
 		List<E> list = new ArrayList<E>(elements());
 		int size = list.size();
 		for (int i = 1; i < size; i++) {
@@ -70,9 +70,9 @@ public interface Group<E> extends Monoid<E> {
 		throw new UnsupportedOperationException();
 	}
 
-	// throws an illegal state exception if order not small enough
+	// throws an illegal state exception if size not small enough
 	default Set<E> elements() {
-		final int size = getOrder().asInt();
+		final int size = getSize().asInt();
 		return new AbstractSet<E>() {
 
 			@Override

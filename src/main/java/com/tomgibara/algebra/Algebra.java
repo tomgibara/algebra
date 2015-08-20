@@ -9,6 +9,6 @@ public interface Algebra<E> {
 
 	EquRel<E> equality();
 
-	Order getOrder();
+	Size getSize();
 
 }

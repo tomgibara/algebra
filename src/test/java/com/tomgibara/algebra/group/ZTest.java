@@ -25,7 +25,7 @@ public class ZTest extends TestCase {
 	}
 	
 	public void testBasic() {
-		Group<BigInteger> z = Groups.Z;
+		Group<BigInteger> z = Groups.Z();
 		assertTrue(z.isAbelian());
 		BigInteger identity = z.op().identity();
 		assertEquals(ZERO, identity);

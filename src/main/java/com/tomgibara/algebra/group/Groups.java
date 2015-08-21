@@ -8,10 +8,18 @@ import java.util.Set;
 import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.Collect;
 import com.tomgibara.collect.EquRel;
+import com.tomgibara.permute.Permutation;
 
 public class Groups {
 
-	public static final Group<BigInteger> Z = com.tomgibara.algebra.group.Z.z;
+	public static final Group<BigInteger> Z() {
+		return Z.z;
+	}
+
+	public static final S symmetricGroup(int order) {
+		if (order < 0) throw new IllegalArgumentException("negative order");
+		return new S(order);
+	}
 
 	public static final <E> Group<E> from(final Group.Operation<E> op, Collection<E> elements) {
 		return from(op, elements, EquRel.equality());

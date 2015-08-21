@@ -98,6 +98,7 @@ public final class Size {
 		return big;
 	}
 	
+	//TODO rename to isInt?
 	public boolean isSmall() {
 		return small > 0L && small < Integer.MAX_VALUE;
 	}
@@ -107,23 +108,23 @@ public final class Size {
 	}
 	
 	public boolean isFinite() {
-		return small >= 0L;
+		return small >= F;
 	}
 	
 	public boolean isCountable() {
-		return small >= -1L;
+		return small >= C;
 	}
 
 	public boolean isInfinite() {
-		return small < 0;
+		return small < F;
 	}
 
 	public boolean isCountablyInfinite() {
-		return small == -1L;
+		return small == C;
 	}
 	
 	public boolean isUncountablyInfinite() {
-		return small == -2L;
+		return small == U;
 	}
 	
 	public Size product(Size that) {
@@ -149,8 +150,9 @@ public final class Size {
 	
 	@Override
 	public String toString() {
-		if (small == -2) return "uncountably infinite";
-		if (small == -1) return "countably infinite";
+		if (small == U) return "uncountably infinite";
+		if (small == C) return "countably infinite";
+		if (small == F) return "finite";
 		if (small == 0) return big.toString();
 		return Long.toString(small);
 	}

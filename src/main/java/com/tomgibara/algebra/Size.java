@@ -32,6 +32,11 @@ public final class Size {
 	public static final Size UNCOUNTABLY_INFINITE = new Size(U);
 	public static final Size ONE                  = new Size(1L);
 	
+	public static Size fromInt(int size) {
+		if (size < 1) throw new IllegalArgumentException("non-positive size");
+		return new Size((long) size);
+	}
+	
 	public static Size fromLong(long size) {
 		if (size < 1L) throw new IllegalArgumentException("non-positive size");
 		return new Size(size);

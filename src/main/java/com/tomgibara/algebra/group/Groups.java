@@ -16,7 +16,7 @@ public class Groups {
 		return Z.z;
 	}
 
-	public static final S symmetricGroup(int order) {
+	public static final S S(int order) {
 		if (order < 0) throw new IllegalArgumentException("negative order");
 		return new S(order);
 	}

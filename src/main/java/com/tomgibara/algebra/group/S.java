@@ -51,7 +51,7 @@ public class S implements Group<Permutation> {
 		
 		@Override
 		public Permutation identity() {
-			return null;
+			return identity;
 		}
 		
 		@Override
@@ -97,15 +97,19 @@ public class S implements Group<Permutation> {
 	public Iterator<Permutation> iterator() {
 		return new Iterator<Permutation>() {
 
-			private final PermutationSequence sequence = identity.generator().getOrderedSequence();
+			private PermutationSequence sequence = null;
 
 			@Override
 			public boolean hasNext() {
-				return sequence.hasNext();
+				return sequence == null || sequence.hasNext();
 			}
 
 			@Override
 			public Permutation next() {
+				if (sequence == null) {
+					sequence = identity.generator().getOrderedSequence();
+					return sequence.first().getGenerator().permutation();
+				}
 				return sequence.next().getGenerator().permutation();
 			}
 

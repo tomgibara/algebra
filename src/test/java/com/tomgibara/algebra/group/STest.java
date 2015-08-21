@@ -36,5 +36,17 @@ public class STest extends TestCase {
 		assertEquals(Size.fromInt(1), Groups.S(1).getSize());
 		assertEquals(Size.fromInt(24), Groups.S(4).getSize());
 	}
+	
+	public void testInduced() {
+		Groups.S(4).inducedSubgroup(Permutation.rotate(4, 1));
+	}
+	
+	public void testSubgroup() {
+		S s4 = Groups.S(4);
+		Subgroup<Permutation> sub = s4.inducedSubgroup(Permutation.rotate(4, 1));
+		Group<Permutation> c3 = sub.getSubgroup();
+		assertEquals(3, c3.getSize().asInt());
+		Coset<Permutation> coset = sub.leftCoset(Permutation.transpose(4, 0, 1));
+	}
 
 }

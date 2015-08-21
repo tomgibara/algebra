@@ -8,6 +8,7 @@ import java.util.Set;
 import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.Collect;
 import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.EquivalenceSet;
 import com.tomgibara.permute.Permutation;
 
 public class Groups {
@@ -25,58 +26,18 @@ public class Groups {
 		return from(op, elements, EquRel.equality());
 	}
 
-	//TODO doesn't close over elements - should it?
-	public static final <E> Group<E> from(final Group.Operation<E> op, Collection<E> elements, EquRel<E> equality) {
+	public static final <E> Group<E> from(Group.Operation<E> op, Collection<E> elements, EquRel<E> equality) {
 		if (op == null) throw new IllegalArgumentException("null op");
 		if (elements == null) throw new IllegalArgumentException("null elements");
 		if (!elements.contains(op.identity())) throw new IllegalArgumentException("elements does not contain identity");
 		if (equality == null) throw new IllegalArgumentException("null equality");
-
-		return new Group<E>() {
-
-			private final Set<E> els = Collect.equivalence(equality).setsWithGenericStorage().newSet(elements);
-			private final Size size = Size.fromLong(elements.size());
-			private Boolean abelian = null;
-
-			@Override
-			public EquRel<E> equality() {
-				return equality;
-			}
-
-			@Override
-			public Iterator<E> iterator() {
-				return els.iterator();
-			}
-
-			@Override
-			public boolean contains(E e) {
-				return els.contains(e);
-			}
-
-			@Override
-			public Set<E> elements() {
-				return els;
-			}
-
-			@Override
-			public Group.Operation<E> op() {
-				return op;
-			}
-
-			@Override
-			public boolean isAbelian() {
-				if (abelian == null) {
-					abelian = Group.super.isAbelian();
-				}
-				return abelian;
-			}
-
-			@Override
-			public Size getSize() {
-				return size;
-			}
-
-		};
+		return new SmallGroup<>(op, elements, equality);
 	}
 
+	public static final <E> Group<E> from(Group.Operation<E> op, EquivalenceSet<E> elements) {
+		if (op == null) throw new IllegalArgumentException("null op");
+		if (elements == null) throw new IllegalArgumentException("null elements");
+		if (!elements.contains(op.identity())) throw new IllegalArgumentException("elements does not contain identity");
+		return new SmallGroup<E>(op, elements);
+	}
 }

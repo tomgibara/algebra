@@ -2,6 +2,7 @@ package com.tomgibara.algebra.group;
 
 import java.util.Collections;
 
+import com.tomgibara.algebra.group.Coset.Side;
 import com.tomgibara.collect.EquRel;
 
 public interface Subgroup<E> {
@@ -30,6 +31,17 @@ public interface Subgroup<E> {
 				return (group.isAbelian() ? Coset.Side.BOTH : Coset.Side.LEFT).singletonCoset(group, e);
 			}
 		};
+	}
+	
+	static <E> Subgroup<E> smallSubgroup(final Group<E> group, final Group<E> subgroup) {
+		if (group == null) throw new IllegalArgumentException("null group");
+		if (subgroup == null) throw new IllegalArgumentException("null subgroup");
+		if (!group.getSize().isSmall()) throw new IllegalArgumentException("large group not supported");
+		if (!group.equality().equals(subgroup.equality())) throw new IllegalArgumentException("equality differs between group and subgroup");
+		E id1 = group.op().identity();
+		E id2 = subgroup.op().identity();
+		if (!group.equality().isEquivalent(id1, id2)) throw new IllegalArgumentException("identity differs between group and subgroup");
+		return new SmallSubgroup<E>(group, subgroup);
 	}
 
 	Group<E> getSubgroup();

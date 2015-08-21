@@ -3,12 +3,16 @@ package com.tomgibara.algebra.group;
 import java.math.BigInteger;
 import java.util.AbstractSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import com.tomgibara.algebra.Size;
 import com.tomgibara.algebra.monoid.Monoid;
+import com.tomgibara.collect.Collect;
+import com.tomgibara.collect.Equivalence;
+import com.tomgibara.collect.EquivalenceSet;
 
 public interface Group<E> extends Monoid<E> {
 
@@ -66,8 +70,43 @@ public interface Group<E> extends Monoid<E> {
 	}
 	
 	default Subgroup<E> inducedSubgroup(E... es) {
-		//TODO repeatedly operate new elements against all elements until no new elements
-		throw new UnsupportedOperationException();
+		if (es == null) throw new IllegalArgumentException("null es");
+		if (es.length == 0) return Subgroup.identitySubgroup(this);
+		Equivalence<E>.Sets sets = Collect.equivalence(equality()).setsWithGenericStorage();
+		//TODO want to specify capacity
+		EquivalenceSet<E> set = sets.newSet(Arrays.asList(es));
+		EquivalenceSet<E> prev = set;
+		if (!getSize().isSmall()) throw new UnsupportedOperationException();
+		// ensure we include the identity
+		Operation<E> op = op();
+		E id = op.identity();
+		if (!prev.contains(id)) {
+			prev.add(id);
+		}
+		// repeatedly operate new elements against all elements until no new elements
+		boolean abelian = isAbelian();
+		while (true) {
+			EquivalenceSet<E> next = sets.newSet();
+			for (E e1 : prev) {
+				for (E e2 : prev) {
+					E e12 = op.compose(e1, e2);
+					if (!set.contains(e12)) {
+						next.add(e12);
+					}
+					if (!abelian) {
+						E e21 = op.compose(e2, e1);
+						if (!set.contains(e21)) {
+							next.add(e21);
+						}
+					}
+				}
+			}
+			if (next.isEmpty()) break;
+			set.addAll(next);
+			prev = next;
+		}
+		// fabricate a subgroup
+		return new SmallSubgroup<>(this, new SmallGroup<>(op, set));
 	}
 
 	// throws an illegal state exception if size not small enough

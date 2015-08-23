@@ -2,12 +2,38 @@ package com.tomgibara.algebra.group;
 
 import java.util.Collections;
 
-import com.tomgibara.algebra.group.Coset.Side;
 import com.tomgibara.collect.EquRel;
 
 public interface Subgroup<E> {
 
-	static <E> Subgroup<E> identitySubgroup(Group<E> group) {
+	static <E> Subgroup<E> totalSubgroup(Group<E> group) {
+		return new Subgroup<E>() {
+
+			private final Coset<E> coset = Coset.Side.BOTH.entireCoset(group);
+			
+			@Override
+			public Group<E> getSubgroup() {
+				return group;
+			}
+
+			@Override
+			public Group<E> getOvergroup() {
+				return group;
+			}
+
+			@Override
+			public Coset<E> leftCoset(E e) {
+				return coset;
+			}
+
+			@Override
+			public Coset<E> rightCoset(E e) {
+				return coset;
+			}
+		};
+	}
+	
+	static <E> Subgroup<E> trivialSubgroup(Group<E> group) {
 		Group<E> identity = Groups.from(group.op(), Collections.singleton(group.op().identity()));
 		return new Subgroup<E>() {
 

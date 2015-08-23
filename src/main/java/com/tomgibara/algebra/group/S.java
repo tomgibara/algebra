@@ -120,5 +120,10 @@ public class S implements Group<Permutation> {
 	public Operation<Permutation> op() {
 		return op;
 	}
+	
+	@Override
+	public boolean isAbelian() {
+		return identity.getSize() < 3;
+	}
 
 }

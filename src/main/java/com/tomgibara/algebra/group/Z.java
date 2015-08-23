@@ -1,13 +1,13 @@
 package com.tomgibara.algebra.group;
 
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.EquRel;
-import com.tomgibara.hashing.HashCode;
-import com.tomgibara.hashing.HashSize;
-import com.tomgibara.hashing.Hasher;
 
 class Z implements Group<BigInteger> {
 
@@ -15,6 +15,9 @@ class Z implements Group<BigInteger> {
 	
 	static Z z = new Z(BigInteger.ONE);
 	
+	static final BigInteger gcd(BigInteger... es) {
+		return Arrays.stream(es).filter(e -> e.signum() != 0).map(e -> e.abs()).distinct().reduce((a,b) -> a.gcd(b)).orElse(BigInteger.ZERO);
+	}
 	private static final Operation<BigInteger> op = new Operation<BigInteger>() {
 
 		@Override
@@ -68,34 +71,7 @@ class Z implements Group<BigInteger> {
 	
 	private Z(BigInteger g) {
 		this.g = g;
-		this.cosetEqu = new EquRel<BigInteger>() {
-
-			@Override
-			public boolean isEquivalent(BigInteger e1, BigInteger e2) {
-				return e1.subtract(e2).remainder(g).signum() == 0;
-			}
-
-			@Override
-			public Hasher<BigInteger> getHasher() {
-				return new Hasher<BigInteger>() {
-					@Override
-					public HashSize getSize() {
-						return HashSize.INT_SIZE;
-					}
-					@Override
-					public HashCode hash(BigInteger value) {
-						return HashCode.fromInt(intHashValue(value));
-					}
-					@Override
-					public int intHashValue(BigInteger value) throws IllegalArgumentException {
-						if (value == null) throw new IllegalArgumentException("null value");
-						return value.remainder(g).hashCode();
-					}
-				};
-			}
-
-		};
-
+		this.cosetEqu = ZCosetEqu.forGenerator(g);
 	}
 	
 	// methods
@@ -133,12 +109,13 @@ class Z implements Group<BigInteger> {
 	public Subgroup<BigInteger> inducedSubgroup(BigInteger... es) {
 		if (es == null) throw new IllegalArgumentException("null es");
 		BigInteger gcd = gcd(es);
-		if (gcd.signum() == 0) return Subgroup.identitySubgroup(this);
+		if (gcd.signum() == 0) return Subgroup.trivialSubgroup(this);
+		if (gcd.equals(g)) return Subgroup.totalSubgroup(this);
 		if (gcd.remainder(g).signum() != 0) throw new IllegalArgumentException("non-element");
 		return new Subgroup<BigInteger>() {
-			
+
 			private final Z subgroup  = new Z(gcd);
-			
+
 			@Override
 			public Group<BigInteger> getOvergroup() {
 				return Z.this;
@@ -151,14 +128,14 @@ class Z implements Group<BigInteger> {
 
 			@Override
 			public Coset<BigInteger> rightCoset(BigInteger e) {
-				return new ZCoset(Z.this, gcd == BigInteger.ONE ? e : e.remainder(gcd));
+				return new ZCoset(Z.this, e.remainder(subgroup.g));
 			}
-			
+
 			@Override
 			public Coset<BigInteger> leftCoset(BigInteger e) {
 				return rightCoset(e);
 			}
-			
+
 		};
 	}
 	
@@ -170,19 +147,4 @@ class Z implements Group<BigInteger> {
 		return this.g.equals(that.g);
 	}
 	
-	private static final BigInteger gcd(BigInteger... es) {
-		int length = es.length;
-		switch (length) {
-		case 0 : return BigInteger.ZERO;
-		case 1 : return es[0];
-		case 2 : return es[0].gcd(es[1]);
-		default:
-			BigInteger gcd = es[0];
-			for (int i = 1; i < length; i++) {
-				gcd = gcd.gcd(es[i]);
-			}
-			return gcd;
-		}
-	}
-
 }

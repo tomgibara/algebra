@@ -3,31 +3,32 @@ package com.tomgibara.algebra.group;
 import java.math.BigInteger;
 
 import com.tomgibara.algebra.Size;
+import com.tomgibara.algebra.group.Coset.Side;
 import com.tomgibara.collect.EquRel;
 
-class ZCoset extends AbstractCoset<BigInteger> {
+public class ZnCoset extends AbstractCoset<BigInteger> {
 
-	private final Z z;
+	private final Zn zn;
 	private final BigInteger r;
 	
-	ZCoset(Z z, BigInteger r) {
-		this.z = z;
+	ZnCoset(Zn zn, BigInteger r) {
+		this.zn = zn;
 		this.r = r;
 	}
 	
 	@Override
 	public Size getSize() {
-		return Size.COUNTABLY_INFINITE;
-	}
-	
-	@Override
-	public boolean contains(BigInteger e) {
-		return z.cosetEqu.isEquivalent(r, e);
+		return Size.fromBig(zn.g);
 	}
 
 	@Override
+	public boolean contains(BigInteger e) {
+		return zn.cosetEqu.isEquivalent(r, e);
+	}
+	
+	@Override
 	public EquRel<BigInteger> equality() {
-		return z.cosetEqu;
+		return zn.cosetEqu;
 	}
 
 	@Override
@@ -39,16 +40,15 @@ class ZCoset extends AbstractCoset<BigInteger> {
 	public BigInteger getRepresentative() {
 		return r;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
-		if (!(obj instanceof ZCoset)) return false;
-		ZCoset that = (ZCoset) obj;
-		if (!this.z.equals(that.z)) return false;
-		if (!z.cosetEqu.isEquivalent(this.r, that.r)) return false;
+		if (!(obj instanceof ZnCoset)) return false;
+		ZnCoset that = (ZnCoset) obj;
+		if (!this.zn.equals(that.zn)) return false;
+		if (!zn.cosetEqu.isEquivalent(this.r, that.r)) return false;
 		return true;
 	}
-	
-	
+
 }

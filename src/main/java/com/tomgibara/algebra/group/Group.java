@@ -71,7 +71,7 @@ public interface Group<E> extends Monoid<E> {
 	
 	default Subgroup<E> inducedSubgroup(E... es) {
 		if (es == null) throw new IllegalArgumentException("null es");
-		if (es.length == 0) return Subgroup.identitySubgroup(this);
+		if (es.length == 0) return Subgroup.trivialSubgroup(this);
 		Equivalence<E>.Sets sets = Collect.equivalence(equality()).setsWithGenericStorage();
 		//TODO want to specify capacity
 		EquivalenceSet<E> set = sets.newSet(Arrays.asList(es));

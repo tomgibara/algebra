@@ -16,6 +16,12 @@ public class Groups {
 	public static final Group<BigInteger> Z() {
 		return Z.z;
 	}
+	
+	public static final Group<BigInteger> Zn(BigInteger n) {
+		if (n == null) throw new IllegalArgumentException("null n");
+		if (n.signum() <= 0) throw new IllegalArgumentException("non-positive n");
+		return new Zn(n);
+	}
 
 	public static final S S(int order) {
 		if (order < 0) throw new IllegalArgumentException("negative order");

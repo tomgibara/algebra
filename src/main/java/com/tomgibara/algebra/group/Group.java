@@ -142,4 +142,13 @@ public interface Group<E> extends Monoid<E> {
 		};
 	}
 
+	default Size orderOf(E e) {
+		if (!getSize().isSmall()) throw new UnsupportedOperationException();
+		Operation<E> op = op();
+		int order;
+		for (order = 1; !isIdentity(e); order++) {
+			e = op.compose(e, e);
+		}
+		return Size.fromInt(order);
+	}
 }

@@ -126,4 +126,8 @@ public class S implements Group<Permutation> {
 		return identity.getSize() < 3;
 	}
 
+	@Override
+	public Size orderOf(Permutation e) {
+		return Size.fromBig( e.getInfo().getLengthOfOrbit() );
+	}
 }

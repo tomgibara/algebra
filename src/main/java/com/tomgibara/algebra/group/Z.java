@@ -140,6 +140,12 @@ class Z implements Group<BigInteger> {
 	}
 	
 	@Override
+	public Size orderOf(BigInteger e) {
+		//TODO should test containment?
+		return e.signum() == 0 ? Size.ONE : Size.COUNTABLY_INFINITE;
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
 		if (!(obj instanceof Z)) return false;

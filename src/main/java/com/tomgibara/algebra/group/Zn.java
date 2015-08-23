@@ -180,6 +180,13 @@ class Zn implements Group<BigInteger> {
 
 		};
 	}
+	
+	@Override
+	public Size orderOf(BigInteger e) {
+		//TODO should test containment?
+		if (e.signum() == 0) return Size.ONE;
+		return Size.fromBig( n.divide( e.gcd(n) ) );
+	}
 
 	@Override
 	public boolean equals(Object obj) {

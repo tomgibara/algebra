@@ -64,6 +64,6 @@ public class ZnTest extends TestCase {
 		assertTrue(s3.contains(BigInteger.ZERO));
 		assertFalse(s3.contains(BigInteger.ONE));
 		assertTrue(s3.contains(THREE));
-		assertEquals(3, s.leftCoset(BigInteger.ONE).getSize().asInt());
+		assertEquals(4, s.leftCoset(BigInteger.ONE).getSize().asInt());
 	}
 }

@@ -1,10 +1,7 @@
 package com.tomgibara.algebra.group;
 
 import java.math.BigInteger;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.EquRel;
@@ -59,16 +56,10 @@ class Z extends Z_ {
 		};
 	}
 	
-	// fields
-	
-	final BigInteger g;
-	final EquRel<BigInteger> cosetEqu;
-	
 	// constructors
 	
 	private Z(BigInteger g) {
-		this.g = g;
-		this.cosetEqu = ZCosetEqu.forGenerator(g);
+		super(g, ZCosetEqu.forGenerator(g));
 	}
 	
 	// methods
@@ -80,21 +71,13 @@ class Z extends Z_ {
 	
 	@Override
 	public boolean contains(BigInteger e) {
-		//TODO need to decide on the correct approach for this
-		if (e == null) return false;
-		if (g == BigInteger.ONE) return true;
-		if (e.remainder(g).signum() == 0) return true;
-		return false;
+		//TODO need to decide on the correct approach for nulls
+		return e != null && containsImpl(e);
 	}
 
 	@Override
 	public EquRel<BigInteger> equality() {
 		return EquRel.equality();
-	}
-
-	@Override
-	public boolean isAbelian() {
-		return true;
 	}
 
 	@Override
@@ -105,41 +88,12 @@ class Z extends Z_ {
 	@Override
 	public Subgroup<BigInteger> inducedSubgroup(BigInteger... es) {
 		if (es == null) throw new IllegalArgumentException("null es");
-		BigInteger gcd = gcd(es);
-		if (gcd.signum() == 0) return Subgroup.trivialSubgroup(this);
-		if (gcd.equals(g)) return Subgroup.totalSubgroup(this);
-		if (gcd.remainder(g).signum() != 0) throw new IllegalArgumentException("non-element");
-		return new Subgroup<BigInteger>() {
-
-			private final Z subgroup  = new Z(gcd);
-
-			@Override
-			public Group<BigInteger> getOvergroup() {
-				return Z.this;
-			}
-
-			@Override
-			public Group<BigInteger> getSubgroup() {
-				return subgroup;
-			}
-
-			@Override
-			public Coset<BigInteger> rightCoset(BigInteger e) {
-				return new ZCoset(subgroup, e);
-			}
-
-			@Override
-			public Coset<BigInteger> leftCoset(BigInteger e) {
-				return rightCoset(e);
-			}
-
-		};
+		return generated(es);
 	}
 	
 	@Override
-	public Size orderOf(BigInteger e) {
-		//TODO should test containment?
-		return e.signum() == 0 ? Size.ONE : Size.COUNTABLY_INFINITE;
+	Z_ subgroup(BigInteger g) {
+		return new Z(g);
 	}
 	
 	@Override

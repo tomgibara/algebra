@@ -11,8 +11,6 @@ import com.tomgibara.collect.EquRel;
 class Zn extends Z_ {
 
 	final BigInteger n;
-	final BigInteger g; // divides n
-	final EquRel<BigInteger> cosetEqu;
 	private Size size = null;
 	private final Operation<BigInteger> op = new Operation<BigInteger>() {
 
@@ -40,15 +38,13 @@ class Zn extends Z_ {
 	};
 	
 	Zn(BigInteger n) {
+		super(BigInteger.ONE, EquRel.equality());
 		this.n = n;
-		this.g = BigInteger.ONE;
-		cosetEqu = equality();
 	}
 	
 	Zn(BigInteger n, BigInteger g) {
+		super(g, ZCosetEqu.forGenerator(g));
 		this.n = n;
-		this.g = g.equals(BigInteger.ONE) ? BigInteger.ONE : g;
-		cosetEqu = ZCosetEqu.forGenerator(g);
 	}
 	
 	public BigInteger getN() {
@@ -57,14 +53,11 @@ class Zn extends Z_ {
 
 	@Override
 	public boolean contains(BigInteger e) {
-		if (e == null) throw new IllegalArgumentException("null e");
-		if (e.signum() < 0 || e.compareTo(n) >= 0) return false;
-		return g == BigInteger.ONE || e.remainder(g).signum() == 0;
-	}
-	
-	@Override
-	public EquRel<BigInteger> equality() {
-		return EquRel.equality();
+		return
+				e != null &&
+				e.signum() >=0
+				&& e.compareTo(n) < 0 &&
+				containsImpl(e);
 	}
 	
 	@Override
@@ -129,63 +122,18 @@ class Zn extends Z_ {
 	}
 	
 	@Override
-	public boolean commutes(BigInteger e1, BigInteger e2) {
-		return true;
-	}
-	
-	@Override
-	public boolean isAbelian() {
-		return true;
-	}
-	
-	@Override
-	public boolean isIdentity(BigInteger e) {
-		return e.signum() == 0;
-	}
-	
-	@Override
 	public Subgroup<BigInteger> inducedSubgroup(BigInteger... es) {
 		if (es == null) throw new IllegalArgumentException("null es");
 		for (BigInteger e : es) {
 			if (e == null) throw new IllegalArgumentException("null e");
 			if (e.signum() < 0 || e.compareTo(n) >= 0) throw new IllegalArgumentException("non element");
 		}
-		BigInteger gcd = Z.gcd(es);
-		if (gcd.signum() == 0) return Subgroup.trivialSubgroup(this);
-		if (gcd.equals(g)) return Subgroup.totalSubgroup(this);
-		if (gcd.remainder(g).signum() != 0) throw new IllegalArgumentException("non-element");
-		return new Subgroup<BigInteger>() {
-
-			private final Zn subgroup  = new Zn(n, gcd);
-
-			@Override
-			public Group<BigInteger> getOvergroup() {
-				return Zn.this;
-			}
-
-			@Override
-			public Group<BigInteger> getSubgroup() {
-				return subgroup;
-			}
-
-			@Override
-			public Coset<BigInteger> rightCoset(BigInteger e) {
-				return new ZnCoset(subgroup, e);
-			}
-
-			@Override
-			public Coset<BigInteger> leftCoset(BigInteger e) {
-				return rightCoset(e);
-			}
-
-		};
+		return generated(es);
 	}
 	
 	@Override
-	public Size orderOf(BigInteger e) {
-		//TODO should test containment?
-		if (e.signum() == 0) return Size.ONE;
-		return Size.fromBig( n.divide( e.gcd(n) ) );
+	Z_ subgroup(BigInteger g) {
+		return new Zn(n, g);
 	}
 
 	@Override
@@ -193,6 +141,8 @@ class Zn extends Z_ {
 		if (obj == this) return true;
 		if (!(obj instanceof Zn)) return false;
 		Zn that = (Zn) obj;
-		return this.g.equals(that.g);
+		return
+				this.n.equals(that.n) &&
+				this.g.equals(that.g);
 	}
 }

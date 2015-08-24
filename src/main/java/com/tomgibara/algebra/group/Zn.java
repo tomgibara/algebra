@@ -8,7 +8,7 @@ import java.util.Set;
 import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.EquRel;
 
-class Zn implements Group<BigInteger> {
+class Zn extends Z_ {
 
 	final BigInteger n;
 	final BigInteger g; // divides n

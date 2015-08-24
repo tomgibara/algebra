@@ -9,15 +9,12 @@ import java.util.Set;
 import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.EquRel;
 
-class Z implements Group<BigInteger> {
+class Z extends Z_ {
 
 	// statics
 	
 	static Z z = new Z(BigInteger.ONE);
 	
-	static final BigInteger gcd(BigInteger... es) {
-		return Arrays.stream(es).filter(e -> e.signum() != 0).map(e -> e.abs()).distinct().reduce((a,b) -> a.gcd(b)).orElse(BigInteger.ZERO);
-	}
 	private static final Operation<BigInteger> op = new Operation<BigInteger>() {
 
 		@Override

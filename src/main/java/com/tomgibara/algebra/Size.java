@@ -90,6 +90,7 @@ public final class Size {
 		return small;
 	}
 	
+	//TDO rename to asBig
 	public BigInteger asBigInt() {
 		if (big == null) {
 			if (small < 0L) return null; //TODO should throw exception instead?
@@ -127,10 +128,32 @@ public final class Size {
 		return small == U;
 	}
 	
-	public Size product(Size that) {
-		long min = Math.min(this.small, that.small);
+	public Size product(Size multiplier) {
+		long min = Math.min(this.small, multiplier.small);
 		if (min < 0L) return fromConstant((int) min);
-		return new Size(this.asBigInt().multiply(that.asBigInt()));
+		return new Size(this.asBigInt().multiply(multiplier.asBigInt()));
+	}
+	
+	public Size quotient(Size divisor) {
+		if (divisor.small <= 0 && divisor.small < this.small) throw new IllegalArgumentException("too large");
+
+		// unknown / infinite case
+		if (this.small < 0) {
+			return this;
+		}
+
+		// finite size
+		if (this.small == 0) { // big case
+			BigInteger[] qr = big.divideAndRemainder(divisor.asBigInt());
+			if (qr[1].signum() != 0) throw new IllegalArgumentException("not divisor");
+			return new Size(qr[0]);
+		}
+
+		// non-big case
+		long q = this.small / divisor.small;
+		long r = this.small - (divisor.small * q);
+		if (r != 0L) throw new IllegalArgumentException("not divisor");
+		return new Size(q);
 	}
 	
 	@Override

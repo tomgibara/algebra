@@ -170,7 +170,7 @@ class Zn implements Group<BigInteger> {
 
 			@Override
 			public Coset<BigInteger> rightCoset(BigInteger e) {
-				return new ZnCoset(Zn.this, e.remainder(subgroup.g));
+				return new ZnCoset(subgroup, e);
 			}
 
 			@Override

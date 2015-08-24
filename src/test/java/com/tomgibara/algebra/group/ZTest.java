@@ -43,16 +43,20 @@ public class ZTest extends TestCase {
 		assertEquals(ZERO, cs0.getRepresentative());
 		Coset<BigInteger> cs5 = subgroup.leftCoset(five);
 		assertEquals(ZERO, cs5.getRepresentative());
-		Coset<BigInteger> cs1 = subgroup.leftCoset(BigInteger.valueOf(6));
+		BigInteger six = BigInteger.valueOf(6);
+		Coset<BigInteger> cs1 = subgroup.leftCoset(six);
 		assertEquals(ONE, cs1.getRepresentative());
 		assertEquals(cs0, cs5);
 		assertEquals(cs0.hashCode(), cs5.hashCode());
-		
+		assertTrue(cs1.contains(BigInteger.ONE));
+		assertFalse(cs1.contains(five));
+		assertTrue(cs1.equality().isEquivalent(BigInteger.ONE, six));
+
 		Set<BigInteger> set = new HashSet<BigInteger>();
 		Iterator<BigInteger> it = z.iterator();
 		for (int i = 0; i < 100; i++) {
 			if (!set.add(it.next())) fail( i + " iterant was duplicate");
 		}
 	}
-	
+
 }

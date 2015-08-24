@@ -13,7 +13,7 @@ public class ZnCoset extends AbstractCoset<BigInteger> {
 	
 	ZnCoset(Zn zn, BigInteger r) {
 		this.zn = zn;
-		this.r = r;
+		this.r = r.remainder(zn.g);
 	}
 	
 	@Override

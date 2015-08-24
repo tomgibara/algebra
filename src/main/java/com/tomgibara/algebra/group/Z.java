@@ -128,7 +128,7 @@ class Z implements Group<BigInteger> {
 
 			@Override
 			public Coset<BigInteger> rightCoset(BigInteger e) {
-				return new ZCoset(Z.this, e.remainder(subgroup.g));
+				return new ZCoset(subgroup, e);
 			}
 
 			@Override

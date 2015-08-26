@@ -34,42 +34,42 @@ public class S implements Group<Permutation> {
 		Size.fromLong(121645100408832000L),
 		Size.fromLong(2432902008176640000L)
 	};
-	
+
 	private final Permutation identity;
 	private Size size;
 	private final Operation<Permutation> op = new Operation<Permutation>() {
-		
+
 		@Override
 		public boolean isCommutative() {
 			return false;
 		}
-		
+
 		@Override
 		public Permutation compose(Permutation e1, Permutation e2) {
 			return e1.generator().apply(e2).permutation();
 		}
-		
+
 		@Override
 		public Permutation identity() {
 			return identity;
 		}
-		
+
 		@Override
 		public Permutation invert(Permutation e) {
 			return e.generator().invert().permutation();
 		}
 	};
-	
+
 
 	S(int order) {
 		identity = Permutation.identity(order);
 		if (order < lowOrderSizes.length) size = lowOrderSizes[order];
 	}
-	
+
 	public int getOrder() {
 		return identity.getSize();
 	}
-	
+
 	@Override
 	public Size getSize() {
 		if (size == null) {
@@ -120,7 +120,7 @@ public class S implements Group<Permutation> {
 	public Operation<Permutation> op() {
 		return op;
 	}
-	
+
 	@Override
 	public boolean isAbelian() {
 		return identity.getSize() < 3;

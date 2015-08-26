@@ -11,12 +11,12 @@ class Z_Subgroup implements Subgroup<BigInteger> {
 		this.overgroup = overgroup;
 		subgroup = overgroup.subgroup(g);
 	}
-	
+
 	@Override
 	public Group<BigInteger> getOvergroup() {
 		return overgroup;
 	}
-	
+
 	@Override
 	public Group<BigInteger> getSubgroup() {
 		return subgroup;

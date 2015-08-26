@@ -10,7 +10,7 @@ public interface Subgroup<E> {
 		return new Subgroup<E>() {
 
 			private final Coset<E> coset = Coset.Side.BOTH.entireCoset(group);
-			
+
 			@Override
 			public Group<E> getSubgroup() {
 				return group;
@@ -32,7 +32,7 @@ public interface Subgroup<E> {
 			}
 		};
 	}
-	
+
 	static <E> Subgroup<E> trivialSubgroup(Group<E> group) {
 		Group<E> identity = Groups.from(group.op(), Collections.singleton(group.op().identity()));
 		return new Subgroup<E>() {
@@ -58,7 +58,7 @@ public interface Subgroup<E> {
 			}
 		};
 	}
-	
+
 	static <E> Subgroup<E> smallSubgroup(final Group<E> group, final Group<E> subgroup) {
 		if (group == null) throw new IllegalArgumentException("null group");
 		if (subgroup == null) throw new IllegalArgumentException("null subgroup");
@@ -71,9 +71,9 @@ public interface Subgroup<E> {
 	}
 
 	Group<E> getSubgroup();
-	
+
 	Group<E> getOvergroup();
-	
+
 	//TODO replace with coset that takes side parameter?
 	Coset<E> leftCoset(E e);
 

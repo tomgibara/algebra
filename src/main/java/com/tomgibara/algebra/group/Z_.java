@@ -19,14 +19,14 @@ abstract class Z_ implements Group<BigInteger> {
 	final EquRel<BigInteger> cosetEqu;
 
 	// constructors
-	
+
 	public Z_(BigInteger g, EquRel<BigInteger> cosetEqu) {
 		this.g = g.equals(BigInteger.ONE) ? BigInteger.ONE : g;
 		this.cosetEqu = cosetEqu;
 	}
 
 	// group methods
-	
+
 	@Override
 	public EquRel<BigInteger> equality() {
 		return EquRel.equality();
@@ -36,17 +36,17 @@ abstract class Z_ implements Group<BigInteger> {
 	public boolean commutes(BigInteger e1, BigInteger e2) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isAbelian() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean isIdentity(BigInteger e) {
 		return e.signum() == 0;
 	}
-	
+
 	@Override
 	public Size orderOf(BigInteger e) {
 		//TODO should test containment?
@@ -62,7 +62,7 @@ abstract class Z_ implements Group<BigInteger> {
 	boolean containsImpl(BigInteger e) {
 		return g == BigInteger.ONE || e.remainder(g).signum() == 0;
 	}
-	
+
 	Subgroup<BigInteger> generated(BigInteger... es) {
 		BigInteger gcd = gcd(es);
 		if (gcd.signum() == 0) return Subgroup.trivialSubgroup(this);

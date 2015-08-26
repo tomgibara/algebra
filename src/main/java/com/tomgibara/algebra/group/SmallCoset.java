@@ -22,20 +22,20 @@ class SmallCoset<E> implements Coset<E> {
 		}
 		return set;
 	}
-	
+
 	private final Side side;
 	private final EquivalenceSet<E> elements;
-	
+
 	SmallCoset(Side side, EquivalenceSet<E> elements) {
 		this.side = side;
 		this.elements = elements;
 	}
-	
+
 	SmallCoset(Side side, Group<E> subgroup, E e) {
 		this.side = side;
 		this.elements = elementsFrom(side, subgroup, e);
 	}
-	
+
 	@Override
 	public boolean contains(E e) {
 		return elements.contains(e);

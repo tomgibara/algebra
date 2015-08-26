@@ -13,7 +13,7 @@ public interface Monoid<E> extends Algebra<E>, Iterable<E> {
 	interface Operation<E> extends com.tomgibara.algebra.Operation<E> {
 
 		E identity();
-		
+
 		default E power(E e, long p) {
 			if (e == null) throw new IllegalArgumentException("null e");
 			if (p < 0) throw new IllegalArgumentException("negative p");
@@ -33,7 +33,7 @@ public interface Monoid<E> extends Algebra<E>, Iterable<E> {
 				t = compose(t, t);
 			}
 		}
-		
+
 		default E power(E e, BigInteger p) {
 			if (p == null) throw new IllegalArgumentException("null p");
 			if (p.signum() < 0) throw new IllegalArgumentException("negative p");
@@ -50,9 +50,9 @@ public interface Monoid<E> extends Algebra<E>, Iterable<E> {
 	}
 
 	Operation<E> op();
-	
+
 	Size getSize();
-	
+
 	default boolean commutes(E e1, E e2) {
 		Operation<E> op = op();
 		if (op.isCommutative()) return true;

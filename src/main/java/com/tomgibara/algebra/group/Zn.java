@@ -34,19 +34,19 @@ class Zn extends Z_ {
 		public BigInteger invert(BigInteger e) {
 			return e.signum() == 0 ? e : n.subtract(e);
 		}
-		
+
 	};
-	
+
 	Zn(BigInteger n) {
 		super(BigInteger.ONE, EquRel.equality());
 		this.n = n;
 	}
-	
+
 	Zn(BigInteger n, BigInteger g) {
 		super(g, ZCosetEqu.forGenerator(g));
 		this.n = n;
 	}
-	
+
 	public BigInteger getN() {
 		return n;
 	}
@@ -59,7 +59,7 @@ class Zn extends Z_ {
 				&& e.compareTo(n) < 0 &&
 				containsImpl(e);
 	}
-	
+
 	@Override
 	public Size getSize() {
 		if (size == null) {
@@ -67,12 +67,12 @@ class Zn extends Z_ {
 		}
 		return size;
 	}
-	
+
 	@Override
 	public Operation<BigInteger> op() {
 		return op;
 	}
-	
+
 	@Override
 	public Set<BigInteger> elements() {
 		return new AbstractSet<BigInteger>() {
@@ -101,7 +101,7 @@ class Zn extends Z_ {
 			}
 		};
 	}
-	
+
 	@Override
 	public Iterator<BigInteger> iterator() {
 		return new Iterator<BigInteger>() {
@@ -120,7 +120,7 @@ class Zn extends Z_ {
 			}
 		};
 	}
-	
+
 	@Override
 	public Subgroup<BigInteger> generatedSubgroup(BigInteger... es) {
 		if (es == null) throw new IllegalArgumentException("null es");
@@ -130,7 +130,7 @@ class Zn extends Z_ {
 		}
 		return generated(es);
 	}
-	
+
 	@Override
 	Z_ subgroup(BigInteger g) {
 		return new Zn(n, g);

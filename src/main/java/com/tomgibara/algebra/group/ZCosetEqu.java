@@ -12,13 +12,13 @@ class ZCosetEqu implements EquRel<BigInteger> {
 	static EquRel<BigInteger> forGenerator(BigInteger g) {
 		return g.equals(BigInteger.ONE) ? EquRel.equality() : new ZCosetEqu(g);
 	}
-	
+
 	private final BigInteger g;
-	
+
 	private ZCosetEqu(BigInteger g) {
 		this.g = g;
 	}
-	
+
 	@Override
 	public boolean isEquivalent(BigInteger e1, BigInteger e2) {
 		return e1.subtract(e2).remainder(g).signum() == 0;

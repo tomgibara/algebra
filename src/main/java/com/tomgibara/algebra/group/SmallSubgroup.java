@@ -6,12 +6,12 @@ class SmallSubgroup<E> implements Subgroup<E> {
 
 	private final Group<E> group;
 	private final Group<E> subgroup;
-	
+
 	public SmallSubgroup(Group<E> group, Group<E> subgroup) {
 		this.group = group;
 		this.subgroup = subgroup;
 	}
-	
+
 	@Override
 	public Group<E> getSubgroup() {
 		return subgroup;

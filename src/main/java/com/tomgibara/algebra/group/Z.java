@@ -9,9 +9,9 @@ import com.tomgibara.collect.EquRel;
 class Z extends Z_ {
 
 	// statics
-	
+
 	static Z z = new Z(BigInteger.ONE);
-	
+
 	private static final Operation<BigInteger> op = new Operation<BigInteger>() {
 
 		@Override
@@ -34,18 +34,18 @@ class Z extends Z_ {
 			return e.negate();
 		}
 	};
-	
+
 	@Override
 	public Iterator<BigInteger> iterator() {
 		return new Iterator<BigInteger>() {
-			
+
 			private BigInteger next = BigInteger.ZERO;
-			
+
 			@Override
 			public boolean hasNext() {
 				return true;
 			}
-			
+
 			@Override
 			public BigInteger next() {
 				BigInteger r = next;
@@ -55,20 +55,20 @@ class Z extends Z_ {
 			}
 		};
 	}
-	
+
 	// constructors
-	
+
 	private Z(BigInteger g) {
 		super(g, ZCosetEqu.forGenerator(g));
 	}
-	
+
 	// methods
 
 	@Override
 	public Operation<BigInteger> op() {
 		return op;
 	}
-	
+
 	@Override
 	public boolean contains(BigInteger e) {
 		//TODO need to decide on the correct approach for nulls
@@ -90,12 +90,12 @@ class Z extends Z_ {
 		if (es == null) throw new IllegalArgumentException("null es");
 		return generated(es);
 	}
-	
+
 	@Override
 	Z_ subgroup(BigInteger g) {
 		return new Z(g);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;
@@ -103,5 +103,5 @@ class Z extends Z_ {
 		Z that = (Z) obj;
 		return this.g.equals(that.g);
 	}
-	
+
 }

@@ -17,13 +17,13 @@ import com.tomgibara.collect.EquivalenceSet;
 public interface Group<E> extends Monoid<E> {
 
 	interface Operation<E> extends Monoid.Operation<E> {
-	
+
 		E invert(E e);
-		
+
 		default E composeInverse(E e1, E e2) {
 			return compose(e1, invert(e2));
 		}
-		
+
 		@Override
 		public default E power(E e, long p) {
 			if (p < 0) {
@@ -32,7 +32,7 @@ public interface Group<E> extends Monoid<E> {
 				return Monoid.Operation.super.power(e, p);
 			}
 		}
-	
+
 		@Override
 		public default E power(E e, BigInteger p) {
 			if (p == null) throw new IllegalArgumentException("null p");
@@ -42,15 +42,15 @@ public interface Group<E> extends Monoid<E> {
 				return Monoid.Operation.super.power(e, p);
 			}
 		}
-		
+
 	}
-	
+
 	Operation<E> op();
-	
+
 	default boolean isIdentity(E e) {
 		return equality().isEquivalent(e, op().identity());
 	}
-	
+
 	// note that group may still be abelian with a non-commutative operation
 	// eg it could be a centralizer of a non abelian group
 	// default implementation only valid for 'small' groups
@@ -68,7 +68,7 @@ public interface Group<E> extends Monoid<E> {
 		}
 		return true;
 	}
-	
+
 	default Subgroup<E> generatedSubgroup(E... es) {
 		if (es == null) throw new IllegalArgumentException("null es");
 		if (es.length == 0) return Subgroup.trivialSubgroup(this);

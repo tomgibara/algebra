@@ -9,17 +9,17 @@ import com.tomgibara.collect.EquivalenceSet;
 public class Groups {
 
 	private static final int PRIME_CERTAINTY = 10;
-	
+
 	public static final Group<BigInteger> Z() {
 		return Z.z;
 	}
-	
+
 	public static final Group<BigInteger> Zn(BigInteger n) {
 		if (n == null) throw new IllegalArgumentException("null n");
 		if (n.signum() <= 0) throw new IllegalArgumentException("non-positive n");
 		return new Zn(n);
 	}
-	
+
 	public static final Group<BigInteger> Zmult(BigInteger p, int n) {
 		if (p == null) throw new IllegalArgumentException("null p");
 		if (!p.isProbablePrime(PRIME_CERTAINTY)) throw new IllegalArgumentException("p not prime");

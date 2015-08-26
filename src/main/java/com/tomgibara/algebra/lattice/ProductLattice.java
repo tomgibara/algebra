@@ -1,6 +1,6 @@
 /*
  * Copyright 2010 Tom Gibara
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 package com.tomgibara.algebra.lattice;
 
@@ -23,7 +23,7 @@ public class ProductLattice implements Lattice<Object[]> {
 
 	private final Lattice<Object>[] lattices;
 	private final Size size;
-	
+
 	@SuppressWarnings("unchecked")
 	public ProductLattice(Lattice<?>... lattices) {
 		if (lattices == null) throw new IllegalArgumentException();
@@ -35,7 +35,7 @@ public class ProductLattice implements Lattice<Object[]> {
 		}
 		this.size = Size.product(size);
 	}
-	
+
 	@Override
 	public Size getSize() {
 		return size;
@@ -48,7 +48,7 @@ public class ProductLattice implements Lattice<Object[]> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean isBoundedBelow() {
 		for (int i = 0; i < lattices.length; i++) {
@@ -56,7 +56,7 @@ public class ProductLattice implements Lattice<Object[]> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean isBounded() {
 		for (int i = 0; i < lattices.length; i++) {
@@ -64,7 +64,7 @@ public class ProductLattice implements Lattice<Object[]> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public Object[] getTop() {
 		Object[] tuple = null;
@@ -76,7 +76,7 @@ public class ProductLattice implements Lattice<Object[]> {
 		}
 		return tuple;
 	}
-	
+
 	@Override
 	public Object[] getBottom() {
 		Object[] tuple = null;
@@ -88,7 +88,7 @@ public class ProductLattice implements Lattice<Object[]> {
 		}
 		return tuple;
 	}
-	
+
 	@Override
 	public boolean contains(Object[] tuple) {
 		checkTuple(tuple);
@@ -97,7 +97,7 @@ public class ProductLattice implements Lattice<Object[]> {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public Lattice<Object[]> boundedAbove(Object[] top) {
 		checkTuple(top);
@@ -128,7 +128,7 @@ public class ProductLattice implements Lattice<Object[]> {
 		}
 		return new ProductLattice(lattices);
 	}
-	
+
 	@Override
 	public Object[] join(Object[] tupleA, Object[] tupleB) {
 		checkTuple(tupleA);
@@ -150,7 +150,7 @@ public class ProductLattice implements Lattice<Object[]> {
 		}
 		return tuple;
 	}
-	
+
 	@Override
 	public EquRel<Object[]> equality() {
 		return (tupleA, tupleB) -> {
@@ -185,10 +185,10 @@ public class ProductLattice implements Lattice<Object[]> {
 		}
 		return comp;
 	}
-	
+
 	private void checkTuple(Object[] tuple) {
 		if (tuple == null) throw new IllegalArgumentException("null tuple");
 		if (tuple.length != lattices.length) throw new IllegalArgumentException("wrong tuple length, expected " + lattices.length + " got " + tuple.length);
 	}
-	
+
 }

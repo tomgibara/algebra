@@ -6,15 +6,15 @@ import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.EquRel;
 
 class Z_Coset extends AbstractCoset<BigInteger> {
-	
+
 	private final Z_ z_;
 	private final BigInteger r;
-	
+
 	Z_Coset(Z_ z_, BigInteger r) {
 		this.z_ = z_;
 		this.r = r.remainder(z_.g);
 	}
-	
+
 	@Override
 	public Size getSize() {
 		return z_.getSize();
@@ -24,7 +24,7 @@ class Z_Coset extends AbstractCoset<BigInteger> {
 	public boolean contains(BigInteger e) {
 		return z_.cosetEqu.isEquivalent(r, e);
 	}
-	
+
 	@Override
 	public EquRel<BigInteger> equality() {
 		return z_.cosetEqu;

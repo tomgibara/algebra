@@ -7,17 +7,17 @@ class EntireCoset<E> extends AbstractCoset<E> {
 
 	private final Side side;
 	private final Group<E> group;
-	
+
 	EntireCoset(Side side, Group<E> group) {
 		this.side = group.isAbelian() ? Side.BOTH : side;
 		this.group = group;
 	}
-	
+
 	@Override
 	public Size getSize() {
 		return Size.COUNTABLY_INFINITE;
 	}
-	
+
 	@Override
 	public boolean contains(E e) {
 		return group.contains(e);
@@ -32,12 +32,12 @@ class EntireCoset<E> extends AbstractCoset<E> {
 	public Side getSide() {
 		return side;
 	}
-	
+
 	@Override
 	public E getRepresentative() {
 		return group.op().identity();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) return true;

@@ -57,7 +57,7 @@ public final class Size {
 		default:
 			long min = Arrays.stream(sizes).mapToLong(size -> size.small).min().getAsLong();
 			if (min < 0) return fromConstant((int) min);
-			BigInteger big = Arrays.stream(sizes).map(size -> size.asBigInt()).reduce((a,b) -> a.multiply(b)).get();
+			BigInteger big = Arrays.stream(sizes).map(size -> size.asBig()).reduce((a,b) -> a.multiply(b)).get();
 			return new Size(big);
 		}
 	}
@@ -90,8 +90,7 @@ public final class Size {
 		return small;
 	}
 	
-	//TDO rename to asBig
-	public BigInteger asBigInt() {
+	public BigInteger asBig() {
 		if (big == null) {
 			if (small < 0L) return null; //TODO should throw exception instead?
 			big = BigInteger.valueOf(small);
@@ -131,7 +130,7 @@ public final class Size {
 	public Size product(Size multiplier) {
 		long min = Math.min(this.small, multiplier.small);
 		if (min < 0L) return fromConstant((int) min);
-		return new Size(this.asBigInt().multiply(multiplier.asBigInt()));
+		return new Size(this.asBig().multiply(multiplier.asBig()));
 	}
 	
 	public Size quotient(Size divisor) {
@@ -144,7 +143,7 @@ public final class Size {
 
 		// finite size
 		if (this.small == 0) { // big case
-			BigInteger[] qr = big.divideAndRemainder(divisor.asBigInt());
+			BigInteger[] qr = big.divideAndRemainder(divisor.asBig());
 			if (qr[1].signum() != 0) throw new IllegalArgumentException("not divisor");
 			return new Size(qr[0]);
 		}

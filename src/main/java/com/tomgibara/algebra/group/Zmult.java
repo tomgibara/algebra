@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.util.Iterator;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.algebra.monoid.Monoid;
 import com.tomgibara.collect.EquRel;
 
 class Zmult implements Group<BigInteger> {

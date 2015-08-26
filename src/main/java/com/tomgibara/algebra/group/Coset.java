@@ -1,7 +1,6 @@
 package com.tomgibara.algebra.group;
 
 import com.tomgibara.algebra.Algebra;
-import com.tomgibara.collect.EquRel;
 import com.tomgibara.collect.EquivalenceSet;
 
 public interface Coset<E> extends Algebra<E> {

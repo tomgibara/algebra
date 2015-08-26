@@ -2,14 +2,9 @@ package com.tomgibara.algebra.group;
 
 import java.math.BigInteger;
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
 
-import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.Collect;
 import com.tomgibara.collect.EquRel;
 import com.tomgibara.collect.EquivalenceSet;
-import com.tomgibara.permute.Permutation;
 
 public class Groups {
 

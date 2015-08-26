@@ -16,8 +16,6 @@
  */
 package com.tomgibara.algebra.lattice;
 
-import java.util.Arrays;
-
 import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.EquRel;
 

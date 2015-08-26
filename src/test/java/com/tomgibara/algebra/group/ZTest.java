@@ -35,7 +35,7 @@ public class ZTest extends TestCase {
 			assertEquals(a.add(b), z.op().compose(a, b));
 		}
 		BigInteger five = BigInteger.valueOf(5);
-		Subgroup<BigInteger> subgroup = z.inducedSubgroup(five);
+		Subgroup<BigInteger> subgroup = z.generatedSubgroup(five);
 		assertTrue(subgroup.getSubgroup().contains(ZERO));
 		assertFalse(subgroup.getSubgroup().contains(ONE));
 		assertTrue(subgroup.getSubgroup().contains(five));

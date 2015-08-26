@@ -58,7 +58,7 @@ public class ZnTest extends TestCase {
 	public void testSubgroup() {
 		Group<BigInteger> z12 = Groups.Zn(BigInteger.valueOf(12));
 		BigInteger THREE = BigInteger.valueOf(3);
-		Subgroup<BigInteger> s = z12.inducedSubgroup(THREE);
+		Subgroup<BigInteger> s = z12.generatedSubgroup(THREE);
 		Group<BigInteger> s3 = s.getSubgroup();
 		assertEquals(4, s3.getSize().asInt());
 		assertTrue(s3.contains(BigInteger.ZERO));

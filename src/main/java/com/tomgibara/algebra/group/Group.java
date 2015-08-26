@@ -69,7 +69,7 @@ public interface Group<E> extends Monoid<E> {
 		return true;
 	}
 	
-	default Subgroup<E> inducedSubgroup(E... es) {
+	default Subgroup<E> generatedSubgroup(E... es) {
 		if (es == null) throw new IllegalArgumentException("null es");
 		if (es.length == 0) return Subgroup.trivialSubgroup(this);
 		Equivalence<E>.Sets sets = Collect.equivalence(equality()).setsWithGenericStorage();

@@ -86,7 +86,7 @@ class Z extends Z_ {
 	}
 
 	@Override
-	public Subgroup<BigInteger> inducedSubgroup(BigInteger... es) {
+	public Subgroup<BigInteger> generatedSubgroup(BigInteger... es) {
 		if (es == null) throw new IllegalArgumentException("null es");
 		return generated(es);
 	}

@@ -122,7 +122,7 @@ class Zn extends Z_ {
 	}
 	
 	@Override
-	public Subgroup<BigInteger> inducedSubgroup(BigInteger... es) {
+	public Subgroup<BigInteger> generatedSubgroup(BigInteger... es) {
 		if (es == null) throw new IllegalArgumentException("null es");
 		for (BigInteger e : es) {
 			if (e == null) throw new IllegalArgumentException("null e");

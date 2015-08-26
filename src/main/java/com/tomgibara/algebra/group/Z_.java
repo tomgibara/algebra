@@ -53,7 +53,7 @@ abstract class Z_ implements Group<BigInteger> {
 		if (e.signum() == 0) return Size.ONE;
 		Size size = getSize();
 		if (!size.isFinite()) return size;
-		BigInteger n = size.asBigInt();
+		BigInteger n = size.asBig();
 		return Size.fromBig( n.divide( e.gcd(n) ) );
 	}
 

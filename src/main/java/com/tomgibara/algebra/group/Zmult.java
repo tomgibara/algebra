@@ -22,7 +22,7 @@ class Zmult implements Group<BigInteger> {
 		
 		@Override
 		public BigInteger compose(BigInteger e1, BigInteger e2) {
-			return e1.multiply(e2).remainder(size.asBigInt());
+			return e1.multiply(e2).remainder(size.asBig());
 		}
 		
 		@Override
@@ -32,19 +32,19 @@ class Zmult implements Group<BigInteger> {
 		
 		@Override
 		public BigInteger invert(BigInteger e) {
-			return e.modInverse(size.asBigInt());
+			return e.modInverse(size.asBig());
 		}
 		
 		@Override
 		public BigInteger power(BigInteger e, BigInteger p) {
-			return e.modPow(p, size.asBigInt());
+			return e.modPow(p, size.asBig());
 		}
 		
 		@Override
 		public BigInteger power(BigInteger e, long p) {
 			if (p == 0) return BigInteger.ONE;
-			else if (p < 0) e = e.modInverse(size.asBigInt());
-			return e.modPow(BigInteger.valueOf(p), size.asBigInt());
+			else if (p < 0) e = e.modInverse(size.asBig());
+			return e.modPow(BigInteger.valueOf(p), size.asBig());
 		}
 	};
 	
@@ -56,7 +56,7 @@ class Zmult implements Group<BigInteger> {
 	
 	@Override
 	public boolean contains(BigInteger e) {
-		return e.compareTo(size.asBigInt()) < 0 && e.signum() > 0;
+		return e.compareTo(size.asBig()) < 0 && e.signum() > 0;
 	}
 	
 	@Override
@@ -81,7 +81,7 @@ class Zmult implements Group<BigInteger> {
 
 			@Override
 			public boolean hasNext() {
-				return next.compareTo(size.asBigInt()) < 0;
+				return next.compareTo(size.asBig()) < 0;
 			}
 
 			@Override

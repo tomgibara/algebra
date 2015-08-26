@@ -73,7 +73,7 @@ public class S implements Group<Permutation> {
 	@Override
 	public Size getSize() {
 		if (size == null) {
-			BigInteger s = lowOrderSizes[lowOrderSizes.length-1].asBigInt();
+			BigInteger s = lowOrderSizes[lowOrderSizes.length-1].asBig();
 			int order = identity.getSize();
 			for (int i = lowOrderSizes.length; i <= order; i++) {
 				s = s.multiply(BigInteger.valueOf(i));

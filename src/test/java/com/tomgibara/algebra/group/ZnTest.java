@@ -36,7 +36,7 @@ public class ZnTest extends TestCase {
 			for (int j = 0; j < 100; j++) {
 				BigInteger a = BigInteger.valueOf(r.nextInt(n));
 				BigInteger b = BigInteger.valueOf(r.nextInt(n));
-				assertEquals(a.add(b).remainder(zn.getSize().asBigInt()), op.compose(a, b));
+				assertEquals(a.add(b).remainder(zn.getSize().asBig()), op.compose(a, b));
 			}
 		}
 	}

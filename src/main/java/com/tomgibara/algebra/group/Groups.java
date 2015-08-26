@@ -13,6 +13,8 @@ import com.tomgibara.permute.Permutation;
 
 public class Groups {
 
+	private static final int PRIME_CERTAINTY = 10;
+	
 	public static final Group<BigInteger> Z() {
 		return Z.z;
 	}
@@ -21,6 +23,13 @@ public class Groups {
 		if (n == null) throw new IllegalArgumentException("null n");
 		if (n.signum() <= 0) throw new IllegalArgumentException("non-positive n");
 		return new Zn(n);
+	}
+	
+	public static final Group<BigInteger> Zmult(BigInteger p, int n) {
+		if (p == null) throw new IllegalArgumentException("null p");
+		if (!p.isProbablePrime(PRIME_CERTAINTY)) throw new IllegalArgumentException("p not prime");
+		if (n < 1) throw new IllegalArgumentException("n not positive");
+		return new Zmult(p, n);
 	}
 
 	public static final S S(int order) {

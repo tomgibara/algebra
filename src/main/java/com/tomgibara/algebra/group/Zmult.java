@@ -104,6 +104,7 @@ class Zmult implements Group<BigInteger> {
 
 	@Override
 	public Size orderOf(BigInteger e) {
+		//TODO needs a proper implementation
 		return isIdentity(e) ? Size.ONE : size;
 	}
 

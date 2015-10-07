@@ -16,6 +16,8 @@
  */
 package com.tomgibara.algebra.lattice;
 
+import java.util.function.Function;
+
 public interface JoinSemiLattice<E> extends SemiLattice<E> {
 
 	//if unbounded, must accept null arguments (representing top)
@@ -26,5 +28,9 @@ public interface JoinSemiLattice<E> extends SemiLattice<E> {
 	E getTop();
 
 	boolean isBoundedAbove();
+
+	default Function<E, E> endomorphism(JoinSemiLattice<E> subLattice) {
+		return x -> join(x, subLattice.getTop());
+	}
 
 }

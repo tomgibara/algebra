@@ -102,10 +102,18 @@ class Zmult implements Group<BigInteger> {
 		return e.equals(BigInteger.ONE);
 	}
 
-	@Override
-	public Size orderOf(BigInteger e) {
-		//TODO needs a proper implementation
-		return isIdentity(e) ? Size.ONE : size;
-	}
+//	@Override
+//	public Size orderOf(BigInteger e) {
+//		if (!contains(e)) throw new IllegalArgumentException();
+//		if (isIdentity(e)) return Size.ONE;
+//		int x = n;
+//		while (true) {
+//			BigInteger[] dr = e.divideAndRemainder(p);
+//			if (dr[1].signum() != 0) break;
+//			e = dr[0];
+//			x--;
+//		}
+//		return Size.fromBig(p.pow(x).subtract(BigInteger.ONE));
+//	}
 
 }

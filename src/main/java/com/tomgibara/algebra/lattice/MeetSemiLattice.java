@@ -16,15 +16,22 @@
  */
 package com.tomgibara.algebra.lattice;
 
+import java.util.function.Function;
+
 public interface MeetSemiLattice<E> extends SemiLattice<E> {
 
 	//if unbounded, must accept null arguments (representing bottom)
 	E meet(E a, E b);
 
-	MeetSemiLattice<E> boundedBelow(E bottom);
-
 	E getBottom();
 
-	boolean isBoundedBelow();
+	MeetSemiLattice<E> boundedBelow(E bottom);
 
+	default boolean isBoundedBelow() {
+		return getBottom() == null;
+	}
+
+	default Function<E, E> endomorphism(MeetSemiLattice<E> subLattice) {
+		return x -> meet(x, subLattice.getBottom());
+	}
 }

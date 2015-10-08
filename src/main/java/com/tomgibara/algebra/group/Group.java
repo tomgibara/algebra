@@ -146,8 +146,9 @@ public interface Group<E> extends Monoid<E> {
 		if (!getSize().isSmall()) throw new UnsupportedOperationException();
 		Operation<E> op = op();
 		int order;
-		for (order = 1; !isIdentity(e); order++) {
-			e = op.compose(e, e);
+		E a = e;
+		for (order = 1; !isIdentity(a); order++) {
+			a = op.compose(a, e);
 		}
 		return Size.fromInt(order);
 	}

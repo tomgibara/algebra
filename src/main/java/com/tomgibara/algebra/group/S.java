@@ -67,14 +67,14 @@ public class S implements Group<Permutation> {
 	}
 
 	public int getOrder() {
-		return identity.getSize();
+		return identity.size();
 	}
 
 	@Override
 	public Size getSize() {
 		if (size == null) {
 			BigInteger s = lowOrderSizes[lowOrderSizes.length-1].asBig();
-			int order = identity.getSize();
+			int order = identity.size();
 			for (int i = lowOrderSizes.length; i <= order; i++) {
 				s = s.multiply(BigInteger.valueOf(i));
 			}
@@ -123,11 +123,11 @@ public class S implements Group<Permutation> {
 
 	@Override
 	public boolean isAbelian() {
-		return identity.getSize() < 3;
+		return identity.size() < 3;
 	}
 
 	@Override
 	public Size orderOf(Permutation e) {
-		return Size.fromBig( e.getInfo().getLengthOfOrbit() );
+		return Size.fromBig( e.info().getLengthOfOrbit() );
 	}
 }

@@ -19,7 +19,7 @@ package com.tomgibara.algebra.lattice;
 import java.util.Comparator;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 public class OrderedLattice<E> implements Lattice<E> {
 
@@ -129,7 +129,7 @@ public class OrderedLattice<E> implements Lattice<E> {
 	};
 
 	@Override
-	public EquRel<E> equality() {
+	public Equivalence<E> equality() {
 		return (a,b) -> {
 			checkBounds(a);
 			checkBounds(b);

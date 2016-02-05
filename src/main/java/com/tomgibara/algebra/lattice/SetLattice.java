@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 //TODO consider whether unbounded sets could be supported
 public class SetLattice<E> implements Lattice<Set<E>> {
@@ -134,7 +134,7 @@ public class SetLattice<E> implements Lattice<Set<E>> {
 	}
 
 	@Override
-	public EquRel<Set<E>> equality() {
+	public Equivalence<Set<E>> equality() {
 		return (a,b) -> {
 			if (!contains(a) || !contains(b)) throw new IllegalArgumentException();
 			return a.equals(b);

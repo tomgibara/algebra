@@ -6,7 +6,7 @@ import java.util.Set;
 
 import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.Collect;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 import com.tomgibara.collect.EquivalenceSet;
 
 class SmallGroup<E> implements Group<E> {
@@ -16,7 +16,7 @@ class SmallGroup<E> implements Group<E> {
 	private final Size size;
 	private Boolean abelian = null;
 
-	SmallGroup(Group.Operation<E> op, Collection<E> elements, EquRel<E> equality) {
+	SmallGroup(Group.Operation<E> op, Collection<E> elements, Equivalence<E> equality) {
 		this(op, Collect.equivalence(equality).setsWithGenericStorage().newSet(elements));
 	}
 
@@ -27,7 +27,7 @@ class SmallGroup<E> implements Group<E> {
 	}
 
 	@Override
-	public EquRel<E> equality() {
+	public Equivalence<E> equality() {
 		return els.getEquivalence();
 	}
 

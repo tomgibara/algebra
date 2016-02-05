@@ -2,15 +2,15 @@ package com.tomgibara.algebra.group;
 
 import java.math.BigInteger;
 
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 import com.tomgibara.hashing.HashCode;
 import com.tomgibara.hashing.HashSize;
 import com.tomgibara.hashing.Hasher;
 
-class ZCosetEqu implements EquRel<BigInteger> {
+class ZCosetEqu implements Equivalence<BigInteger> {
 
-	static EquRel<BigInteger> forGenerator(BigInteger g) {
-		return g.equals(BigInteger.ONE) ? EquRel.equality() : new ZCosetEqu(g);
+	static Equivalence<BigInteger> forGenerator(BigInteger g) {
+		return g.equals(BigInteger.ONE) ? Equivalence.equality() : new ZCosetEqu(g);
 	}
 
 	private final BigInteger g;

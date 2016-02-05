@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 abstract class Z_ implements Group<BigInteger> {
 
@@ -16,11 +16,11 @@ abstract class Z_ implements Group<BigInteger> {
 	// fields
 
 	final BigInteger g; // divides n
-	final EquRel<BigInteger> cosetEqu;
+	final Equivalence<BigInteger> cosetEqu;
 
 	// constructors
 
-	public Z_(BigInteger g, EquRel<BigInteger> cosetEqu) {
+	public Z_(BigInteger g, Equivalence<BigInteger> cosetEqu) {
 		this.g = g.equals(BigInteger.ONE) ? BigInteger.ONE : g;
 		this.cosetEqu = cosetEqu;
 	}
@@ -28,8 +28,8 @@ abstract class Z_ implements Group<BigInteger> {
 	// group methods
 
 	@Override
-	public EquRel<BigInteger> equality() {
-		return EquRel.equality();
+	public Equivalence<BigInteger> equality() {
+		return Equivalence.equality();
 	}
 
 	@Override

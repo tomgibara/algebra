@@ -2,7 +2,7 @@ package com.tomgibara.algebra.group;
 
 import java.util.Collections;
 
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 public interface Subgroup<E> {
 
@@ -79,16 +79,16 @@ public interface Subgroup<E> {
 
 	Coset<E> rightCoset(E e);
 
-	default EquRel<E> leftCosetEquivalence() {
-		return new EquRel<E>() {
+	default Equivalence<E> leftCosetEquivalence() {
+		return new Equivalence<E>() {
 			public boolean isEquivalent(E e1, E e2) {
 				return leftCoset(e1).contains(e2);
 			}
 		};
 	}
 
-	default EquRel<E> rightCosetEquivalence() {
-		return new EquRel<E>() {
+	default Equivalence<E> rightCosetEquivalence() {
+		return new Equivalence<E>() {
 			public boolean isEquivalent(E e1, E e2) {
 				return rightCoset(e1).contains(e2);
 			}

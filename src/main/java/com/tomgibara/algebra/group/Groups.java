@@ -3,7 +3,7 @@ package com.tomgibara.algebra.group;
 import java.math.BigInteger;
 import java.util.Collection;
 
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 import com.tomgibara.collect.EquivalenceSet;
 
 public class Groups {
@@ -33,10 +33,10 @@ public class Groups {
 	}
 
 	public static final <E> Group<E> from(final Group.Operation<E> op, Collection<E> elements) {
-		return from(op, elements, EquRel.equality());
+		return from(op, elements, Equivalence.equality());
 	}
 
-	public static final <E> Group<E> from(Group.Operation<E> op, Collection<E> elements, EquRel<E> equality) {
+	public static final <E> Group<E> from(Group.Operation<E> op, Collection<E> elements, Equivalence<E> equality) {
 		if (op == null) throw new IllegalArgumentException("null op");
 		if (elements == null) throw new IllegalArgumentException("null elements");
 		if (!elements.contains(op.identity())) throw new IllegalArgumentException("elements does not contain identity");

@@ -17,7 +17,7 @@
 package com.tomgibara.algebra.lattice;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 public class BooleanLattice implements Lattice<Boolean> {
 
@@ -110,7 +110,7 @@ public class BooleanLattice implements Lattice<Boolean> {
 	}
 
 	@Override
-	public EquRel<Boolean> equality() {
+	public Equivalence<Boolean> equality() {
 		return (a,b) -> {
 			if (!contains(a) || !contains(b)) throw new IllegalArgumentException();
 			return a.booleanValue() == b.booleanValue();

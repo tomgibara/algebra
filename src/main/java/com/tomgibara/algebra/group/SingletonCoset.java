@@ -1,7 +1,7 @@
 package com.tomgibara.algebra.group;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 class SingletonCoset<E> extends AbstractCoset<E> {
 
@@ -26,7 +26,7 @@ class SingletonCoset<E> extends AbstractCoset<E> {
 	}
 
 	@Override
-	public EquRel<E> equality() {
+	public Equivalence<E> equality() {
 		return group.equality();
 	}
 

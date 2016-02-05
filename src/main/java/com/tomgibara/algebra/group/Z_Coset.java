@@ -3,7 +3,7 @@ package com.tomgibara.algebra.group;
 import java.math.BigInteger;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 class Z_Coset extends AbstractCoset<BigInteger> {
 
@@ -26,7 +26,7 @@ class Z_Coset extends AbstractCoset<BigInteger> {
 	}
 
 	@Override
-	public EquRel<BigInteger> equality() {
+	public Equivalence<BigInteger> equality() {
 		return z_.cosetEqu;
 	}
 

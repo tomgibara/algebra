@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Iterator;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 class Zmult implements Group<BigInteger> {
 
@@ -64,8 +64,8 @@ class Zmult implements Group<BigInteger> {
 	}
 
 	@Override
-	public EquRel<BigInteger> equality() {
-		return EquRel.equality();
+	public Equivalence<BigInteger> equality() {
+		return Equivalence.equality();
 	}
 
 	@Override

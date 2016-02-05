@@ -19,7 +19,7 @@ package com.tomgibara.algebra.lattice;
 import java.util.function.Function;
 
 import com.tomgibara.algebra.poset.PartialOrder;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 //TODO can optimize implementation of bounded methods by checking for equality with top/bottom
 // no method on this interface can take nulls
@@ -52,7 +52,7 @@ public interface Lattice<E> extends MeetSemiLattice<E>, JoinSemiLattice<E>, Part
 	}
 	
 	@Override
-	default EquRel<E> equality() {
+	default Equivalence<E> equality() {
 		return (e1, e2) -> {
 			if (!contains(e1) || !contains(e2)) throw new IllegalArgumentException();
 			E m = meet(e1, e2);

@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Iterator;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 import com.tomgibara.permute.Permutation;
 import com.tomgibara.permute.PermutationSequence;
 
@@ -89,8 +89,8 @@ public class S implements Group<Permutation> {
 	}
 
 	@Override
-	public EquRel<Permutation> equality() {
-		return EquRel.equality();
+	public Equivalence<Permutation> equality() {
+		return Equivalence.equality();
 	}
 
 	@Override

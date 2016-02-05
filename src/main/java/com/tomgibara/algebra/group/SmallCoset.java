@@ -3,7 +3,7 @@ package com.tomgibara.algebra.group;
 import com.tomgibara.algebra.Size;
 import com.tomgibara.algebra.group.Group.Operation;
 import com.tomgibara.collect.Collect;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 import com.tomgibara.collect.EquivalenceSet;
 
 class SmallCoset<E> implements Coset<E> {
@@ -42,7 +42,7 @@ class SmallCoset<E> implements Coset<E> {
 	}
 
 	@Override
-	public EquRel<E> equality() {
+	public Equivalence<E> equality() {
 		return elements.getEquivalence();
 	}
 

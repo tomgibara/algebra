@@ -11,7 +11,7 @@ import java.util.Set;
 import com.tomgibara.algebra.Size;
 import com.tomgibara.algebra.monoid.Monoid;
 import com.tomgibara.collect.Collect;
-import com.tomgibara.collect.Equivalence;
+import com.tomgibara.collect.EquivalenceCol;
 import com.tomgibara.collect.EquivalenceSet;
 
 public interface Group<E> extends Monoid<E> {
@@ -72,7 +72,7 @@ public interface Group<E> extends Monoid<E> {
 	default Subgroup<E> generatedSubgroup(E... es) {
 		if (es == null) throw new IllegalArgumentException("null es");
 		if (es.length == 0) return Subgroup.trivialSubgroup(this);
-		Equivalence<E>.Sets sets = Collect.equivalence(equality()).setsWithGenericStorage();
+		EquivalenceCol<E>.Sets sets = Collect.equivalence(equality()).setsWithGenericStorage();
 		//TODO want to specify capacity
 		EquivalenceSet<E> set = sets.newSet(Arrays.asList(es));
 		EquivalenceSet<E> prev = set;

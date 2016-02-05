@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 class Zn extends Z_ {
 
@@ -38,7 +38,7 @@ class Zn extends Z_ {
 	};
 
 	Zn(BigInteger n) {
-		super(BigInteger.ONE, EquRel.equality());
+		super(BigInteger.ONE, Equivalence.equality());
 		this.n = n;
 	}
 

@@ -17,7 +17,7 @@
 package com.tomgibara.algebra.lattice;
 
 import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.EquRel;
+import com.tomgibara.collect.Equivalence;
 
 public class ProductLattice implements Lattice<Object[]> {
 
@@ -152,7 +152,7 @@ public class ProductLattice implements Lattice<Object[]> {
 	}
 
 	@Override
-	public EquRel<Object[]> equality() {
+	public Equivalence<Object[]> equality() {
 		return (tupleA, tupleB) -> {
 			checkTuple(tupleA);
 			checkTuple(tupleB);

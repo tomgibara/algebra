@@ -17,6 +17,7 @@
 package com.tomgibara.algebra.lattice;
 
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 public interface JoinSemiLattice<E> extends SemiLattice<E> {
 
@@ -29,7 +30,7 @@ public interface JoinSemiLattice<E> extends SemiLattice<E> {
 
 	boolean isBoundedAbove();
 
-	default Function<E, E> endomorphism(JoinSemiLattice<E> subLattice) {
+	default UnaryOperator<E> endomorphism(JoinSemiLattice<E> subLattice) {
 		return x -> join(x, subLattice.getTop());
 	}
 

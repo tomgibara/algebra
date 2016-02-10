@@ -17,6 +17,7 @@
 package com.tomgibara.algebra.lattice;
 
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 public interface MeetSemiLattice<E> extends SemiLattice<E> {
 
@@ -31,7 +32,7 @@ public interface MeetSemiLattice<E> extends SemiLattice<E> {
 		return getBottom() == null;
 	}
 
-	default Function<E, E> endomorphism(MeetSemiLattice<E> subLattice) {
+	default UnaryOperator<E> endomorphism(MeetSemiLattice<E> subLattice) {
 		return x -> meet(x, subLattice.getBottom());
 	}
 }

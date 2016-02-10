@@ -16,7 +16,7 @@
  */
 package com.tomgibara.algebra.lattice;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import com.tomgibara.algebra.poset.PartialOrder;
 import com.tomgibara.collect.Equivalence;
@@ -47,8 +47,10 @@ public interface Lattice<E> extends MeetSemiLattice<E>, JoinSemiLattice<E>, Part
 		return isBoundedBelow() && isBoundedAbove();
 	}
 
-	default Function<E,E> endomorphism(Lattice<E> subLattice) {
-		return endomorphism((JoinSemiLattice<E>) subLattice).andThen(endomorphism((MeetSemiLattice<E>) subLattice));
+	default UnaryOperator<E> endomorphism(Lattice<E> subLattice) {
+		UnaryOperator<E> e1 = endomorphism((MeetSemiLattice<E>) subLattice);
+		UnaryOperator<E> e2 = endomorphism((JoinSemiLattice<E>) subLattice);
+		return e -> e2.apply(e1.apply(e));
 	}
 	
 	@Override

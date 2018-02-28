@@ -17,7 +17,7 @@ class SmallGroup<E> implements Group<E> {
 	private Boolean abelian = null;
 
 	SmallGroup(Group.Operation<E> op, Collection<E> elements, Equivalence<E> equality) {
-		this(op, Collect.equivalence(equality).setsWithGenericStorage().newSet(elements));
+		this(op, Collect.<E>sets().underEquivalence(equality).newSet(elements));
 	}
 
 	SmallGroup(Group.Operation<E> op, EquivalenceSet<E> els) {

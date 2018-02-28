@@ -9,7 +9,7 @@ import com.tomgibara.collect.EquivalenceSet;
 class SmallCoset<E> implements Coset<E> {
 
 	private static <E> EquivalenceSet<E> elementsFrom(Side side, Group<E> subgroup, E g) {
-		EquivalenceSet<E> set = Collect.equivalence(subgroup.equality()).setsWithGenericStorage().newSet();
+		EquivalenceSet<E> set = Collect.<E>sets().underEquivalence(subgroup.equality()).newSet();
 		Operation<E> op = subgroup.op();
 		if (side.left) {
 			for (E e : subgroup) {

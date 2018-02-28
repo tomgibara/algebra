@@ -10,7 +10,8 @@ class Zmult implements Group<BigInteger> {
 
 	private final BigInteger p;
 	private final int n;
-	private final Size size;
+	private final BigInteger m; // p^n
+	private final Size size; // p^n - p
 
 	private final Operation<BigInteger> op = new Operation<BigInteger>() {
 
@@ -21,7 +22,7 @@ class Zmult implements Group<BigInteger> {
 
 		@Override
 		public BigInteger compose(BigInteger e1, BigInteger e2) {
-			return e1.multiply(e2).remainder(size.asBig());
+			return e1.multiply(e2).remainder(m);
 		}
 
 		@Override
@@ -31,31 +32,36 @@ class Zmult implements Group<BigInteger> {
 
 		@Override
 		public BigInteger invert(BigInteger e) {
-			return e.modInverse(size.asBig());
+			return e.modInverse(m);
 		}
 
 		@Override
 		public BigInteger power(BigInteger e, BigInteger p) {
-			return e.modPow(p, size.asBig());
+			return e.modPow(p, m);
 		}
 
 		@Override
 		public BigInteger power(BigInteger e, long p) {
-			if (p == 0) return BigInteger.ONE;
-			else if (p < 0) e = e.modInverse(size.asBig());
-			return e.modPow(BigInteger.valueOf(p), size.asBig());
+			if (Math.abs(p) > 1) return e.modPow(BigInteger.valueOf(p), m);
+			switch ((int) p) {
+			case -1 : return e.modInverse(m);
+			case  0 : return BigInteger.ONE;
+			default : return e;
+			}
 		}
 	};
 
 	Zmult(BigInteger p, int n) {
 		this.p = p;
 		this.n = n;
-		size = Size.fromBig(p.pow(n));
+		m = p.pow(n);
+		size = Size.fromBig(m.subtract(p));
 	}
 
 	@Override
 	public boolean contains(BigInteger e) {
-		return e.compareTo(size.asBig()) < 0 && e.signum() > 0;
+		// not too big, not negative, not a divisor of zero
+		return e.compareTo(m) < 0 && e.signum() > 0 && e.mod(p).signum() != 0;
 	}
 
 	@Override

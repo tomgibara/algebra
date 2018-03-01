@@ -34,7 +34,7 @@ public interface Subgroup<E> {
 	}
 
 	static <E> Subgroup<E> trivialSubgroup(Group<E> group) {
-		Group<E> identity = Groups.from(group.op(), Collections.singleton(group.op().identity()));
+		Group<E> identity = new TrivialGroup<>(group.op().identity());
 		return new Subgroup<E>() {
 
 			@Override

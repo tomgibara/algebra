@@ -25,8 +25,8 @@ public final class Groups {
 	public static Group<BigInteger> ZmultPK(BigInteger p, int k) {
 		if (p == null) throw new IllegalArgumentException("null p");
 		if (!p.isProbablePrime(PRIME_CERTAINTY)) throw new IllegalArgumentException("p not prime");
-		if (k < 1) throw new IllegalArgumentException("k not positive");
-		return new ZmultPK(p, k);
+		if (k < 0) throw new IllegalArgumentException("negative k");
+		return k == 0 ? new TrivialGroup<>(BigInteger.ONE) : new ZmultPK(p, k);
 	}
 
 	public static Group<Permutation> S(int order) {
@@ -44,6 +44,11 @@ public final class Groups {
 
 	public static <E> Group<E> from(final Group.Operation<E> op, Collection<E> elements) {
 		return from(op, elements, Equivalence.equality());
+	}
+
+	public static <E> Group<E> trivial(E identity) {
+		if (identity == null) throw new IllegalArgumentException("null identity");
+		return new TrivialGroup<>(identity);
 	}
 
 	public static <E> Group<E> from(Group.Operation<E> op, Collection<E> elements, Equivalence<E> equality) {

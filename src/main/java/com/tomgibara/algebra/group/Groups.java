@@ -1,5 +1,6 @@
 package com.tomgibara.algebra.group;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
 
@@ -31,6 +32,14 @@ public final class Groups {
 	public static Group<Permutation> S(int order) {
 		if (order < 0) throw new IllegalArgumentException("negative order");
 		return new S(order);
+	}
+
+	public static Group<Double> Rdbl() {
+		return Rdbl.instance;
+	}
+
+	public static Group<BigDecimal> Rbig() {
+		return Rbig.instance;
 	}
 
 	public static <E> Group<E> from(final Group.Operation<E> op, Collection<E> elements) {

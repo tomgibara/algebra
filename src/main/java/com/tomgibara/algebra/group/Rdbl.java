@@ -40,9 +40,20 @@ public class Rdbl extends R<Double> {
 	}
 
 	@Override
-	Subgroup<Double> singleSubgroup(Double e) {
-		if (e == null) throw new IllegalArgumentException("null e");
-		return new Single(e);
+	public Subgroup<Double> generatedSubgroup(Double... es) {
+		if (es == null) throw new IllegalArgumentException("null es");
+		switch (es.length) {
+		case 1 :
+			Double e = es[0];
+			if (e == null) throw new IllegalArgumentException("null e");
+			if (e != 0.0) return new Single(e);
+			// fall through
+		case 0 :
+			return Subgroup.trivialSubgroup(this);
+		default:
+			// in general we can't establish gcd
+			return Subgroup.totalSubgroup(this);
+		}
 	}
 
 	private class Single extends R<Double>.RSubgroup {
@@ -83,11 +94,27 @@ public class Rdbl extends R<Double> {
 		@Override
 		public boolean contains(Double e) {
 			if (e == null) throw new IllegalArgumentException("null e");
-			return x % e == 0.0;
+			return e % x == 0.0;
 		}
 
 		@Override
 		public Subgroup<Double> generatedSubgroup(Double... es) {
+			// check es are valid
+			if (es == null) throw new IllegalArgumentException("null es");
+			for (Double e : es) {
+				if (!contains(e)) throw new IllegalArgumentException("invalid e");
+			}
+			switch (es.length) {
+			case 0 :
+				return Subgroup.trivialSubgroup(this);
+			case 1 :
+				double e = es[0];
+				if (e == x  ) return Subgroup.totalSubgroup(this);
+				if (e == 0.0) return Subgroup.trivialSubgroup(this);
+				return singleSubgroup(e);
+			default:
+				return Subgroup.totalSubgroup(this);
+			}
 		}
 
 	}

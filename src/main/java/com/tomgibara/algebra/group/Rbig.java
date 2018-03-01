@@ -38,6 +38,21 @@ public class Rbig extends R<BigDecimal> {
 		return new Multiple(es);
 	}
 
+	@Override
+	public Subgroup<BigDecimal> generatedSubgroup(BigDecimal... es) {
+		if (es == null) throw new IllegalArgumentException("null es");
+		switch (es.length) {
+		case 1 :
+			BigDecimal e = es[0];
+			if (e == null) throw new IllegalArgumentException("null e");
+			if (e.signum() != 0) return new Multiple(es);
+			// fall through
+		case 0 :
+			return Subgroup.trivialSubgroup(this);
+		default: return new Multiple(es);
+		}
+	}
+
 	private class Multiple extends R<BigDecimal>.RSubgroup {
 
 		private final BigDecimal x;
@@ -52,7 +67,6 @@ public class Rbig extends R<BigDecimal> {
 			BigInteger gcd = null;
 			for (int i = 0; i < xs.length; i++) {
 				BigInteger x = xs[i].scaleByPowerOfTen(s).toBigIntegerExact();
-				System.out.println(x);
 				gcd = gcd == null ? x : gcd.gcd(x);
 			}
 			// scale to restore decimal value
@@ -88,5 +102,12 @@ public class Rbig extends R<BigDecimal> {
 			return e.remainder(x).signum() == 0;
 		}
 
+		@Override
+		public Subgroup<BigDecimal> generatedSubgroup(BigDecimal... es) {
+			for (BigDecimal e : es) {
+				if (!contains(e)) throw new IllegalArgumentException("invalid e");
+			}
+			return es.length == 0 ? Subgroup.trivialSubgroup(this) : new Multiple(es);
+		}
 	}
 }

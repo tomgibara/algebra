@@ -3,6 +3,7 @@ package com.tomgibara.algebra.group;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.Iterator;
 
 import com.tomgibara.collect.Equivalence;
 import com.tomgibara.collect.EquivalenceSet;
@@ -11,6 +12,15 @@ import com.tomgibara.permute.Permutation;
 public final class Groups {
 
 	private static final int PRIME_CERTAINTY = 10;
+
+	static <E> Iterator<E> alternator(E x, Group.Operation<E> op) {
+		return new Iterator<E>() {
+			long n = 0;
+			@Override public boolean hasNext() { return true; }
+			@Override public E next() { try { return op.power(x, n); } finally { n = n < 0 ? -n : -n-1; } }
+		};
+
+	}
 
 	public static Group<BigInteger> Z() {
 		return Z.z;

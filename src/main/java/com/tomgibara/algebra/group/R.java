@@ -27,21 +27,6 @@ abstract class R<E> implements Group<E> {
 		return Size.COUNTABLY_INFINITE;
 	}
 
-	@Override
-	public Subgroup<E> generatedSubgroup(E... es) {
-		if (es == null) throw new IllegalArgumentException("null es");
-		switch (es.length) {
-		case 1 :
-			E e = es[0];
-			if (e == null) throw new IllegalArgumentException("null e");
-			if (!isIdentity(e)) return singleSubgroup(e);
-			// fall through
-		case 0 :
-			return Subgroup.trivialSubgroup(this);
-		default: return multipleSubgroup(es);
-		}
-	}
-
 	// must override one
 	Subgroup<E> singleSubgroup(E e) {
 		return multipleSubgroup(e);
@@ -115,11 +100,7 @@ abstract class R<E> implements Group<E> {
 
 		@Override
 		public Iterator<E> iterator() {
-			return new Iterator<E>() {
-				long n = 0;
-				@Override public boolean hasNext() { return true; }
-				@Override public E next() { try { return R.this.op().power(x(), n); } finally { n = n < 0 ? -n : -n-1; } }
-			};
+			return Groups.alternator(x(), R.this.op());
 		}
 
 		@Override

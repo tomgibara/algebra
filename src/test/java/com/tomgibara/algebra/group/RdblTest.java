@@ -1,6 +1,7 @@
 package com.tomgibara.algebra.group;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -28,5 +29,14 @@ public class RdblTest {
 		Subgroup<Double> rtoo = r.generatedSubgroup(1.0, Math.PI);
 		assertEquals(r, rtoo.getSubgroup());
 		assertEquals(7.0, r.op().compose(4.0, 3.0).doubleValue(), 0.0);
+	}
+
+	@Test
+	public void testGeneratedSubgroup() {
+		Group<Double> r = Groups.Rdbl();
+		Group<Double> s = r.generatedSubgroup(2.0).getSubgroup();
+		Group<Double> t = s.generatedSubgroup(4.0).getSubgroup();
+		assertTrue(t.contains(4.0));
+		assertFalse(t.contains(2.0));
 	}
 }

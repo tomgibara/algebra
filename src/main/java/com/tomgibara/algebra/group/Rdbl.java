@@ -1,11 +1,6 @@
 package com.tomgibara.algebra.group;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Iterator;
-
-import com.tomgibara.algebra.Size;
-import com.tomgibara.collect.Equivalence;
 
 // reals implemented with doubles
 public class Rdbl extends R<Double> {
@@ -29,6 +24,7 @@ public class Rdbl extends R<Double> {
 
 	@Override
 	public boolean isIdentity(Double e) {
+		if (e == null) throw new IllegalArgumentException("null e");
 		return e == 0f;
 	}
 
@@ -36,11 +32,6 @@ public class Rdbl extends R<Double> {
 	public boolean contains(Double e) {
 		if (e == null) throw new IllegalArgumentException("null e");
 		return !e.isNaN();
-	}
-
-	@Override
-	public Equivalence<Double> equality() {
-		return Equivalence.equality();
 	}
 
 	@Override
@@ -92,7 +83,11 @@ public class Rdbl extends R<Double> {
 		@Override
 		public boolean contains(Double e) {
 			if (e == null) throw new IllegalArgumentException("null e");
-			return x % e == 0f;
+			return x % e == 0.0;
+		}
+
+		@Override
+		public Subgroup<Double> generatedSubgroup(Double... es) {
 		}
 
 	}

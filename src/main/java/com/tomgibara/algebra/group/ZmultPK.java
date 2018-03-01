@@ -6,12 +6,12 @@ import java.util.Iterator;
 import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.Equivalence;
 
-class Zmult implements Group<BigInteger> {
+class ZmultPK implements Group<BigInteger> {
 
 	private final BigInteger p;
-	private final int n;
-	private final BigInteger m; // p^n
-	private final Size size; // p^n - p
+	private final int k;
+	private final BigInteger m; // p^k
+	private final Size size; // p^k - p
 
 	private final Operation<BigInteger> op = new Operation<BigInteger>() {
 
@@ -51,10 +51,10 @@ class Zmult implements Group<BigInteger> {
 		}
 	};
 
-	Zmult(BigInteger p, int n) {
+	ZmultPK(BigInteger p, int k) {
 		this.p = p;
-		this.n = n;
-		m = p.pow(n);
+		this.k = k;
+		m = p.pow(k);
 		size = Size.fromBig(m.subtract(p));
 	}
 

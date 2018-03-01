@@ -22,11 +22,11 @@ public final class Groups {
 		return new Zn(n);
 	}
 
-	public static Group<BigInteger> Zmult(BigInteger p, int n) {
+	public static Group<BigInteger> ZmultPK(BigInteger p, int k) {
 		if (p == null) throw new IllegalArgumentException("null p");
 		if (!p.isProbablePrime(PRIME_CERTAINTY)) throw new IllegalArgumentException("p not prime");
-		if (n < 1) throw new IllegalArgumentException("n not positive");
-		return new Zmult(p, n);
+		if (k < 1) throw new IllegalArgumentException("k not positive");
+		return new ZmultPK(p, k);
 	}
 
 	public static Group<Permutation> S(int order) {

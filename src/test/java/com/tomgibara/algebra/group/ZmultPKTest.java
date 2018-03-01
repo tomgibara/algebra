@@ -14,11 +14,11 @@ import org.junit.Test;
 
 import com.tomgibara.algebra.Size;
 
-public class ZmultTest {
+public class ZmultPKTest {
 
 	@Test
 	public void testOrder() {
-		Group<BigInteger> zm = Groups.Zmult(valueOf(5), 3);
+		Group<BigInteger> zm = Groups.ZmultPK(valueOf(5), 3);
 		assertEquals(Size.fromInt(1), zm.orderOf(ONE));
 		assertEquals(Size.fromInt(100), zm.orderOf(valueOf(2)));
 		assertEquals(Size.fromInt(100), zm.orderOf(valueOf(3)));
@@ -27,7 +27,7 @@ public class ZmultTest {
 
 	@Test
 	public void testContains() {
-		Group<BigInteger> zm = Groups.Zmult(valueOf(5), 3);
+		Group<BigInteger> zm = Groups.ZmultPK(valueOf(5), 3);
 		assertFalse(zm.contains(ZERO));
 		assertFalse(zm.contains(valueOf(5)));
 		assertFalse(zm.contains(valueOf(-1)));

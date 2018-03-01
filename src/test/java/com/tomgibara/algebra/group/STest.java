@@ -19,7 +19,7 @@ public class STest extends TestCase {
 	public void testIterator() {
 		for (int i = 0; i < 6; i++) {
 			Set<Permutation> set = new HashSet<>();
-			S s = Groups.S(i);
+			Group<Permutation> s = Groups.S(i);
 			for (Permutation p : s) { set.add(p); }
 			assertEquals(s.getSize().asInt(), set.size());
 		}
@@ -42,7 +42,7 @@ public class STest extends TestCase {
 	}
 	
 	public void testSubgroup() {
-		S s4 = Groups.S(4);
+		Group<Permutation> s4 = Groups.S(4);
 		Subgroup<Permutation> sub = s4.generatedSubgroup(Permutation.rotate(4, 1));
 		Group<Permutation> c3 = sub.getSubgroup();
 		assertEquals(3, c3.getSize().asInt());

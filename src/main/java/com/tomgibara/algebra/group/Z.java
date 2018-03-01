@@ -14,25 +14,14 @@ class Z extends Z_ {
 
 	private static final Operation<BigInteger> op = new Operation<BigInteger>() {
 
-		@Override
-		public boolean isCommutative() {
-			return true;
-		}
+		@Override public boolean isCommutative() { return true; }
 
-		@Override
-		public BigInteger identity() {
-			return BigInteger.ZERO;
-		}
-
-		@Override
-		public BigInteger compose(BigInteger e1, BigInteger e2) {
-			return e1.add(e2);
-		}
-
-		@Override
-		public BigInteger invert(BigInteger e) {
-			return e.negate();
-		}
+		@Override public BigInteger identity()                                   { return BigInteger.ZERO                  ; }
+		@Override public BigInteger compose(BigInteger e1, BigInteger e2)        { return e1.add(e2)                       ; }
+		@Override public BigInteger composeInverse(BigInteger e1, BigInteger e2) { return e2.subtract(e2)                  ; }
+		@Override public BigInteger invert(BigInteger e)                         { return e.negate()                       ; }
+		@Override public BigInteger power(BigInteger e, BigInteger p)            { return e.multiply(p)                    ; }
+		@Override public BigInteger power(BigInteger e, long p)                  { return e.multiply(BigInteger.valueOf(p)); }
 	};
 
 	@Override

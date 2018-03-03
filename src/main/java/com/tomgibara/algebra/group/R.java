@@ -27,16 +27,6 @@ abstract class R<E> implements Group<E> {
 		return Size.COUNTABLY_INFINITE;
 	}
 
-	// must override one
-	Subgroup<E> singleSubgroup(E e) {
-		return multipleSubgroup(e);
-	}
-
-	Subgroup<E> multipleSubgroup(E...es) {
-		// in general we can't establish gcd
-		return Subgroup.totalSubgroup(this);
-	}
-
 	abstract class RSubgroup implements Subgroup<E>, Group<E> {
 
 		abstract E x();
@@ -76,7 +66,7 @@ abstract class R<E> implements Group<E> {
 
 			@Override
 			public Equivalence<E> equality() {
-				return Equivalence.equality();
+				return R.this.equality();
 			}
 
 			@Override
@@ -95,7 +85,7 @@ abstract class R<E> implements Group<E> {
 
 		@Override
 		public Equivalence<E> equality() {
-			return Equivalence.equality();
+			return R.this.equality();
 		}
 
 		@Override

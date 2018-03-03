@@ -111,7 +111,7 @@ public class Rdbl extends R<Double> {
 				double e = es[0];
 				if (e == x  ) return Subgroup.totalSubgroup(this);
 				if (e == 0.0) return Subgroup.trivialSubgroup(this);
-				return singleSubgroup(e);
+				return new Single(x);
 			default:
 				return Subgroup.totalSubgroup(this);
 			}

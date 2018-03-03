@@ -3,6 +3,8 @@ package com.tomgibara.algebra.group;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import com.tomgibara.collect.Equivalence;
+
 public class Rbig extends R<BigDecimal> {
 
 	private static final Operation<BigDecimal> op = new Operation<BigDecimal>() {
@@ -27,15 +29,14 @@ public class Rbig extends R<BigDecimal> {
 	}
 
 	@Override
-	public boolean contains(BigDecimal e) {
-		if (e == null) throw new IllegalArgumentException("null e");
-		return true;
+	public Equivalence<BigDecimal> equality() {
+		return Equivalence.bigDecimal();
 	}
 
 	@Override
-	Subgroup<BigDecimal> multipleSubgroup(BigDecimal... es) {
-		if (es == null) throw new IllegalArgumentException("null es");
-		return new Multiple(es);
+	public boolean contains(BigDecimal e) {
+		if (e == null) throw new IllegalArgumentException("null e");
+		return true;
 	}
 
 	@Override
@@ -94,6 +95,11 @@ public class Rbig extends R<BigDecimal> {
 					return r;
 				}
 			};
+		}
+
+		@Override
+		public Equivalence<BigDecimal> equality() {
+			return Equivalence.bigDecimal();
 		}
 
 		@Override

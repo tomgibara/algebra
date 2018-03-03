@@ -43,4 +43,9 @@ public class RbigTest {
 		assertTrue(t.contains(FOUR));
 		assertFalse(t.contains(TWO));
 	}
+
+	@Test
+	public void testEquality() {
+		assertTrue(Groups.Rbig().equality().isEquivalent(new BigDecimal("2.0"), new BigDecimal("2")));
+	}
 }

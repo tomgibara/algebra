@@ -2,6 +2,7 @@ package com.tomgibara.algebra.group;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -50,6 +51,16 @@ public final class Groups {
 
 	public static Group<BigDecimal> Rbig() {
 		return Rbig.instance;
+	}
+
+	public static Group<Double> RmultDbl() {
+		return RmultDbl.instance;
+	}
+
+	public static Group<BigDecimal> RmultBig(MathContext context, int compareTo) {
+		if (context == null) throw new IllegalArgumentException("null context");
+		if (compareTo < 0) throw new IllegalArgumentException("negative compareTo");
+		return new RmultBig(context, compareTo);
 	}
 
 	public static <E> Group<E> from(final Group.Operation<E> op, Collection<E> elements) {

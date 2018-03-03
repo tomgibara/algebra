@@ -60,6 +60,11 @@
       <version>2.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
+      <groupId>ch.obermuhlner</groupId>
+      <artifactId>big-math</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>

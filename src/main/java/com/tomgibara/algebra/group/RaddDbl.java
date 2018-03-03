@@ -3,7 +3,7 @@ package com.tomgibara.algebra.group;
 import java.math.BigInteger;
 
 // reals implemented with doubles
-public class Rdbl extends R<Double> {
+public class RaddDbl extends Radd<Double> {
 
 	private static final Operation<Double> op = new Operation<Double>() {
 
@@ -18,9 +18,9 @@ public class Rdbl extends R<Double> {
 
 	};
 
-	static final Rdbl instance = new Rdbl();
+	static final RaddDbl instance = new RaddDbl();
 
-	private Rdbl() { }
+	private RaddDbl() { }
 
 	@Override
 	public boolean isIdentity(Double e) {
@@ -56,7 +56,7 @@ public class Rdbl extends R<Double> {
 		}
 	}
 
-	private class Single extends R<Double>.RSubgroup {
+	private class Single extends Radd<Double>.RSubgroup {
 
 		private final double x;
 
@@ -71,7 +71,7 @@ public class Rdbl extends R<Double> {
 			return x;
 		}
 
-		R<Double>.RSubgroup.RCoset newCoset(Double r) {
+		Radd<Double>.RSubgroup.RCoset newCoset(Double r) {
 			if (r == null) throw new IllegalArgumentException("null r");
 			return new RCoset() {
 

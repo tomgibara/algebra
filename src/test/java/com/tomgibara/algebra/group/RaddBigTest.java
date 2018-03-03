@@ -15,11 +15,11 @@ import org.junit.Test;
 
 import com.tomgibara.collect.Collect;
 
-public class RbigTest {
+public class RaddBigTest {
 
 	@Test
 	public void testBasic() {
-		Group<BigDecimal> r = Groups.Rbig();
+		Group<BigDecimal> r = Groups.RaddBig();
 		assertTrue(r.contains(ONE));
 		assertTrue(r.isIdentity(ZERO));
 		assertEquals(1, r.generatedSubgroup(ZERO).getSubgroup().getSize().asInt());
@@ -35,7 +35,7 @@ public class RbigTest {
 
 	@Test
 	public void testGeneratedSubgroup() {
-		Group<BigDecimal> r = Groups.Rbig();
+		Group<BigDecimal> r = Groups.RaddBig();
 		BigDecimal TWO = new BigDecimal("2.0");
 		BigDecimal FOUR = new BigDecimal("4.0");
 		Group<BigDecimal> s = r.generatedSubgroup(TWO).getSubgroup();
@@ -46,6 +46,6 @@ public class RbigTest {
 
 	@Test
 	public void testEquality() {
-		assertTrue(Groups.Rbig().equality().isEquivalent(new BigDecimal("2.0"), new BigDecimal("2")));
+		assertTrue(Groups.RaddBig().equality().isEquivalent(new BigDecimal("2.0"), new BigDecimal("2")));
 	}
 }

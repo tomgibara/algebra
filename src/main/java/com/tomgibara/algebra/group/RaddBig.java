@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 import com.tomgibara.collect.Equivalence;
 
-public class Rbig extends R<BigDecimal> {
+public class RaddBig extends Radd<BigDecimal> {
 
 	private static final Operation<BigDecimal> op = new Operation<BigDecimal>() {
 
@@ -19,9 +19,9 @@ public class Rbig extends R<BigDecimal> {
 		@Override public BigDecimal power(BigDecimal e, BigInteger p)            { return e.multiply(new BigDecimal(p));     }
 	};
 
-	static final Rbig instance = new Rbig();
+	static final RaddBig instance = new RaddBig();
 
-	private Rbig() { }
+	private RaddBig() { }
 
 	@Override
 	public Operation<BigDecimal> op() {
@@ -54,7 +54,7 @@ public class Rbig extends R<BigDecimal> {
 		}
 	}
 
-	private class Multiple extends R<BigDecimal>.RSubgroup {
+	private class Multiple extends Radd<BigDecimal>.RSubgroup {
 
 		private final BigDecimal x;
 
@@ -80,7 +80,7 @@ public class Rbig extends R<BigDecimal> {
 		}
 
 		@Override
-		R<BigDecimal>.RSubgroup.RCoset newCoset(BigDecimal r) {
+		Radd<BigDecimal>.RSubgroup.RCoset newCoset(BigDecimal r) {
 			if (r == null) throw new IllegalArgumentException("null r");
 			return new RCoset() {
 

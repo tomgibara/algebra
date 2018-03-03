@@ -13,11 +13,11 @@ import org.junit.Test;
 
 import com.tomgibara.collect.Collect;
 
-public class RdblTest {
+public class RaddDblTest {
 
 	@Test
 	public void testBasic() {
-		Group<Double> r = Groups.Rdbl();
+		Group<Double> r = Groups.RaddDbl();
 		assertTrue(r.contains(1.0));
 		assertTrue(r.isIdentity(0.0));
 		Subgroup<Double> z = r.generatedSubgroup(1.0);
@@ -33,7 +33,7 @@ public class RdblTest {
 
 	@Test
 	public void testGeneratedSubgroup() {
-		Group<Double> r = Groups.Rdbl();
+		Group<Double> r = Groups.RaddDbl();
 		Group<Double> s = r.generatedSubgroup(2.0).getSubgroup();
 		Group<Double> t = s.generatedSubgroup(4.0).getSubgroup();
 		assertTrue(t.contains(4.0));

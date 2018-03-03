@@ -5,7 +5,7 @@ import java.util.Iterator;
 import com.tomgibara.algebra.Size;
 import com.tomgibara.collect.Equivalence;
 
-abstract class R<E> implements Group<E> {
+abstract class Radd<E> implements Group<E> {
 
 	@Override
 	public Size getSize() {
@@ -52,7 +52,7 @@ abstract class R<E> implements Group<E> {
 
 		@Override
 		public Group<E> getOvergroup() {
-			return R.this;
+			return Radd.this;
 		}
 
 		abstract RCoset newCoset(E r);
@@ -66,7 +66,7 @@ abstract class R<E> implements Group<E> {
 
 			@Override
 			public Equivalence<E> equality() {
-				return R.this.equality();
+				return Radd.this.equality();
 			}
 
 			@Override
@@ -85,17 +85,17 @@ abstract class R<E> implements Group<E> {
 
 		@Override
 		public Equivalence<E> equality() {
-			return R.this.equality();
+			return Radd.this.equality();
 		}
 
 		@Override
 		public Iterator<E> iterator() {
-			return Groups.alternator(x(), R.this.op());
+			return Groups.alternator(x(), Radd.this.op());
 		}
 
 		@Override
 		public Operation<E> op() {
-			return R.this.op();
+			return Radd.this.op();
 		}
 
 	}

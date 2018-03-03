@@ -45,12 +45,12 @@ public final class Groups {
 		return new S(order);
 	}
 
-	public static Group<Double> Rdbl() {
-		return Rdbl.instance;
+	public static Group<Double> RaddDbl() {
+		return RaddDbl.instance;
 	}
 
-	public static Group<BigDecimal> Rbig() {
-		return Rbig.instance;
+	public static Group<BigDecimal> RaddBig() {
+		return RaddBig.instance;
 	}
 
 	public static Group<Double> RmultDbl() {
